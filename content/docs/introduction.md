@@ -1,17 +1,17 @@
 ---
 title: "Introduction"
-description: "What goilerplate is. What it generates. Where to start."
+description: "What gostart is. What it generates. Where to start."
 order: 1
 ---
 
 ## TLDR
 
-goilerplate creates a production-ready Go SaaS from one command. It is free and open source.
+gostart creates a production-ready Go SaaS from one command. It is free and open source.
 
 You choose the stack. The CLI renders a normal Go repository on your machine. You own every file.
 
 ```bash
-goilerplate new
+gostart new
 ```
 
 That is the core product.
@@ -35,7 +35,7 @@ The generator includes only selected modules. Choosing Stripe does not leave Pol
 
 ### Frontend versions
 
-goilerplate vendors and verifies the exact browser runtime selected during generation.
+gostart vendors and verifies the exact browser runtime selected during generation.
 
 | Selection | Product line | Exact browser runtime | Server integration |
 | --- | --- | --- | --- |
@@ -50,7 +50,7 @@ htmx and Datastar projects can add the JSON API with `--api`. They are what I re
 
 ## What you do not get
 
-goilerplate is not a framework or hosted application platform.
+gostart is not a framework or hosted application platform.
 
 - No proprietary runtime.
 - No account, no license and no server.
@@ -64,12 +64,12 @@ After generation, it is your Go repository.
 ## The simplest path
 
 1. [Install the CLI](/docs/installation).
-2. Open the [stack builder](/new) or run `goilerplate new`.
+2. Open the [stack builder](/new) or run `gostart new`.
 3. Copy `.env.example` to `.env`, configure email, then run `task dev`.
 4. Read [Architecture](/docs/architecture) before changing boundaries.
 
 ## License
 
-goilerplate is open source. The CLI is MIT. The template and every project it generates are 0BSD: use, change and sell what you build, with no notice to keep. Generated projects ship without a LICENSE file, so you choose your own.
+gostart is open source. The CLI is MIT. The template and every project it generates are 0BSD: use, change and sell what you build, with no notice to keep. Generated projects ship without a LICENSE file, so you choose your own.
 
-Every frontend, both databases, both payment providers, both mail providers and every optional module are included. `goilerplate update` brings later template versions into your project.
+Every frontend, both databases, both payment providers, both mail providers and every optional module are included. `gostart update` brings later template versions into your project.
