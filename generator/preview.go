@@ -17,7 +17,7 @@ func (t Template) PreviewFiles(config Config) ([]string, error) {
 		return nil, err
 	}
 	paths := make([]string, 0, len(files)+1)
-	paths = append(paths, "goilerplate.lock")
+	paths = append(paths, "gostart.lock")
 	for _, file := range files {
 		paths = append(paths, file.Destination)
 	}
