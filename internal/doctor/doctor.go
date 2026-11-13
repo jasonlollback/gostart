@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/axadrn/goilerplate/v4/generator"
-	"github.com/axadrn/goilerplate/v4/internal/update"
+	"github.com/jasonlollback/gostart/v4/generator"
+	"github.com/jasonlollback/gostart/v4/internal/update"
 )
 
 type Level int
@@ -79,7 +79,7 @@ func (i Inspector) Inspect(ctx context.Context, directory string) Report {
 		}
 	}
 
-	report = i.checkVersion(ctx, report, "git", []string{"--version"}, "2.38.0", "Install Git 2.38 or newer for goilerplate update")
+	report = i.checkVersion(ctx, report, "git", []string{"--version"}, "2.38.0", "Install Git 2.38 or newer for gostart update")
 	report = i.checkTool(report, "task", "Optional. Install Task from https://taskfile.dev/installation/", LevelWarning)
 	switch lock.Config.Framework {
 	case "svelte":
@@ -228,12 +228,12 @@ func findProjectRoot(directory string) (string, error) {
 		return "", err
 	}
 	for {
-		if _, err := os.Stat(filepath.Join(root, "goilerplate.lock")); err == nil {
+		if _, err := os.Stat(filepath.Join(root, "gostart.lock")); err == nil {
 			return root, nil
 		}
 		parent := filepath.Dir(root)
 		if parent == root {
-			return "", errors.New("goilerplate.lock was not found in this directory or its parents")
+			return "", errors.New("gostart.lock was not found in this directory or its parents")
 		}
 		root = parent
 	}
