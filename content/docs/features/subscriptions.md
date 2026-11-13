@@ -30,7 +30,7 @@ Only that provider enters the project. Both adapters produce the same local subs
 
 Generated Stripe Checkout Sessions enable [Stripe Managed Payments](https://docs.stripe.com/payments/managed-payments) in code.
 
-You must also activate Managed Payments and accept its terms in your own Stripe Dashboard. Follow Stripe's current [setup documentation](https://docs.stripe.com/payments/managed-payments/set-up). goilerplate does not duplicate dashboard steps that Stripe may change.
+You must also activate Managed Payments and accept its terms in your own Stripe Dashboard. Follow Stripe's current [setup documentation](https://docs.stripe.com/payments/managed-payments/set-up). GoStart does not duplicate dashboard steps that Stripe may change.
 
 The in-app Manage subscription button creates a short-lived Stripe Customer Portal session. Customers change plans, payment methods, invoices, and cancellations there. The generated app does not duplicate those controls.
 
