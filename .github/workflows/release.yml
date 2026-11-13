@@ -33,7 +33,7 @@ jobs:
         shell: bash
         run: |
           git merge-base --is-ancestor "$GITHUB_SHA" origin/main
-          test "$(go list -m)" = "github.com/axadrn/goilerplate/v4"
+          test "$(go list -m)" = "github.com/jasonlollback/gostart/v4"
           go mod tidy -diff
           go test ./...
           go vet ./...
