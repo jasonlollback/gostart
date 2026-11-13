@@ -1,66 +1,63 @@
-# Goilerplate integration plan
+# Goilerplate customisation plan
 
-This repository retains the Goilerplate fork's Git history and implementation as a source of reusable code. The product direction and target architecture are defined by the gostart requirements and decisions in this repository.
+## Direction
 
-## Current state
+The Goilerplate fork is the canonical implementation of gostart. We will customise the existing codebase rather than porting the separate `gostart_v1` implementation or rebuilding the generator around its architecture.
 
-- The repository history and original upstream relationship are retained.
-- The root project identity and contributor guidance have been changed to gostart.
-- The gostart_v1 product requirements, architecture, decisions, workflow, backlog and specifications have been ported into this repository.
-- The existing Goilerplate generator and generated SaaS template are still present. They are not yet the gostart v1 implementation.
-- The existing Goilerplate website, content and release configuration have not yet been assessed for reuse or removal.
-- No generated project behaviour has been changed in this integration foundation.
+The developer is already familiar with Goilerplate's codebase. Retaining its generator, template-selection mechanism, package structure and proven workflows is an explicit project preference.
 
-## Integration principles
+## Role of gostart_v1
 
-1. Keep useful, tested Goilerplate implementation where it fits the gostart product.
-2. Do not preserve a feature merely because it exists upstream. In particular, the Goilerplate matrix of databases, payment providers, mail providers, frontends, workspaces and SaaS capabilities is not the v1 product scope.
-3. Prefer the smaller, tested gostart_v1 renderer and safe writer where they are stronger than the current implementation. Reuse concepts and tests; do not copy blindly.
-4. Generated output must be independent of the generator and must not receive automatic updates.
-5. Preserve Goilerplate license files and notices for inherited code. Keep original attribution intact.
-6. Keep upstream as a remote and incorporate upstream changes selectively, never by blindly merging a new SaaS feature matrix.
+The former `gostart_v1` repository is a reference for product preferences, design ideas and selected generated-application defaults. Its code and architecture are not being merged. Its specifications are not binding requirements; use them as input when making individual feature decisions.
 
-## Proposed sequence
+## Principles
 
-### 1. Establish canonical identity
+1. Start from the current Goilerplate implementation and understand its existing conventions.
+2. Rebrand the product as gostart without unnecessary structural changes.
+3. Keep existing features that are useful and maintainable.
+4. Remove features that do not fit the intended product or create disproportionate maintenance cost.
+5. Add and customise capabilities incrementally, following existing patterns where possible.
+6. Avoid parallel architectures, wholesale rewrites and premature generalisation.
+7. Test both the generator and representative generated projects after template changes.
+8. Preserve Goilerplate license files, notices, attribution and Git history.
+9. Keep the upstream remote and selectively incorporate useful upstream fixes.
+
+## Work sequence
+
+### 1. Establish gostart identity
 
 - [x] Create an integration branch from the Goilerplate fork.
-- [x] Establish gostart README and agent guidance.
-- [x] Port product, architecture, decision, backlog and specification documents.
-- [ ] Rename the Go module and CLI from Goilerplate to gostart in one coherent change.
-- [ ] Review GoReleaser, CI, release workflows, Taskfile and generated documentation for old product references.
-- [ ] Decide whether the existing website and content are useful; rebrand, replace or remove them.
-- [ ] Review inherited licenses and retain required notices.
+- [x] Establish a gostart README and product identity on the integration branch.
+- [ ] Rename the Go module, CLI, commands, workflows and release assets coherently.
+- [ ] Review website, docs, content and generated-project references for old branding.
+- [ ] Retain license and copyright notices.
 
-### 2. Reconcile generator architecture
+### 2. Audit existing features
 
-- [ ] Compare the existing Goilerplate selection/rendering pipeline with gostart_v1's render-plan-write pipeline.
-- [ ] Adopt deterministic in-memory rendering and complete output-path validation before filesystem writes.
-- [ ] Ensure writes are confined, exclusive and cleaned up on failure.
-- [ ] Retain golden fixture coverage and add tests for path collisions, case-fold collisions and partial-write cleanup.
-- [ ] Keep the implementation small; do not add a general plugin runtime.
+- [ ] Inventory generator options and their dependencies.
+- [ ] Map each option to the template files, tests, documentation and generated dependencies it affects.
+- [ ] Identify features to retain, simplify, change or remove.
+- [ ] Identify gaps where a new capability is needed.
+- [ ] Record decisions before making broad template changes.
 
-### 3. Establish the v1 generated application
+### 3. Customise incrementally
 
-- [ ] Build or select the minimal reference app from the gostart_v1 baseline.
-- [ ] Align generated project structure and conventions with docs/ARCHITECTURE.md.
-- [ ] Add the SQLite and startup migration foundation.
-- [ ] Add the chosen web stack and Taskfile/tools module.
-- [ ] Add optional email OTP authentication and ADMIN_EMAIL initial administrator provisioning.
-- [ ] Add configuration and declarative feature composition only as needed by working use cases.
-- [ ] Verify each generated fixture independently.
+For each feature change:
 
-### 4. Remove out-of-scope template capabilities
+- [ ] Define the user-visible behaviour and defaults.
+- [ ] Identify the smallest changes to the existing generator and template tree.
+- [ ] Update validation and feature interactions.
+- [ ] Update generated configuration, docs and examples.
+- [ ] Add generator tests and generated-project fixture coverage.
+- [ ] Verify unaffected feature combinations.
 
-Only after the minimal v1 path works, remove or isolate unused Goilerplate capabilities such as PostgreSQL, Stripe/Polar billing, SMTP/Resend choices, OAuth, SvelteKit, workspaces, storage, MCP, and broad SaaS administration. Preserve code only when it is part of an explicitly accepted future capability.
+### 4. Release and maintain
 
-### 5. Release readiness
+- [ ] Establish gostart release naming and versioning.
+- [ ] Ensure CI exercises representative generated combinations.
+- [ ] Document supported feature combinations and prerequisites.
+- [ ] Review upstream changes periodically and selectively.
 
-- [ ] Replace Goilerplate naming in CLI help, docs, generated files and release assets.
-- [ ] Confirm module path `github.com/jasonlollback/gostart` (no major-version suffix for v0/v1).
-- [ ] Establish a clean CI matrix for the generator and generated fixtures.
-- [ ] Tag the first gostart release only after the v1 acceptance criteria pass.
+## Existing gostart_v1 documents
 
-## Important
-
-The `done` statuses from the original gostart_v1 backlog describe work completed in that separate repository. They do not mean the work has already been integrated or verified in this canonical repository. The backlog has been reset to make this distinction explicit.
+The `docs/PRODUCT.md`, `docs/ARCHITECTURE.md`, `docs/DECISIONS.md`, `docs/BACKLOG.md` and `specs/` files were ported from the earlier gostart_v1 work. Treat them as historical/reference material until each item is explicitly reconciled with the Goilerplate implementation and current product direction. Do not use their completion statuses as evidence that corresponding work exists in this repository.
