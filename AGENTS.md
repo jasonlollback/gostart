@@ -1,37 +1,50 @@
 # AGENTS.md
 
-## Scope
+## Product identity
 
-This repository is goilerplate, free and open source: the CLI, the generator with its template, and the website. Everything runs on the user's machine. There is no goilerplate server, account or license.
+- The product and CLI are named `gostart`, always lowercase.
+- This repository is an independent fork of Goilerplate. Do not describe gostart as the original Goilerplate product.
+- Generated applications are self-contained and must not depend on gostart at runtime.
+- Do not add automatic template-update functionality.
 
-## Brand
+## Product and architecture
 
-- Always write the product name as `goilerplate` in lowercase, including at the start of sentences and headings.
-- Keep technical identifiers unchanged.
+- Read `docs/PRODUCT.md`, `docs/ARCHITECTURE.md` and `docs/DECISIONS.md` before changing generator or template architecture.
+- Read the relevant specification in `specs/` before implementing a backlog item.
+- Keep `docs/BACKLOG.md` current when work is completed or scope changes.
+- The initial generated application profile is Go, `net/http`, `http.ServeMux`, SQLite with `modernc.org/sqlite`, `database/sql`, sqlc, Templ, Tailwind CSS 4, shadcn-templ, HTMX, slog and tint.
+- V1 supports SQLite only. Do not add PostgreSQL or alternative frontend frameworks without an explicit product decision.
+- Use feature-oriented packages. Do not impose `/internal/platform` and `/internal/modules`.
+- Prefer the standard library. Add dependencies only when they materially improve the result.
+- Avoid interfaces without a real substitution or testing need.
+
+## Generated application conventions
+
+- Use `modernc.org/sqlite` with `_time_format=sqlite&_timezone=UTC`.
+- Use `database/sql`, WAL, foreign keys, STRICT tables, TEXT timestamps and UUIDv7 identifiers.
+- Use sqlc for typed query generation.
+- Keep development tools in a separate `/tools` Go module.
+- Use Taskfile, not Makefiles.
+- Keep `.env.example` aligned with the selected generated features.
+- Initial administrator provisioning is triggered by `ADMIN_EMAIL` alone, is idempotent, and must not continually re-promote an account on every startup.
+- Authentication uses email one-time codes and database-backed sessions; do not introduce password authentication by default.
+- Migrations are embedded, sequential, forward-only and checksum-verified. They run before the HTTP server becomes ready.
 
 ## Engineering
 
-- Prefer the Go standard library.
-- Keep packages small and concrete. Add interfaces only at real I/O boundaries used by tests.
-- `generator` owns the template, the configuration and `goilerplate.lock`. The CLI uses its types directly.
-- The CLI makes no network call except `changelog` (GitHub releases) and `update`, which downloads a released template from the Go module proxy. No telemetry.
-- Nothing private enters this repository: no secrets, no customer data, no server names or internal plans.
-- Run `go test -race ./...`, `go vet ./...`, `go build ./...`, and `go mod tidy -diff` before pushing.
-- Then check what you changed, and only that: a small change gets a quick look at the changed page or generated project; a release with many changes gets the full run (generate every stack, click through it in Chromium and WebKit).
+- Keep packages small and concrete. Separate rendering, validation and filesystem writing.
+- Validate the complete generation plan before writing output.
+- Generation must be deterministic for identical inputs.
+- Never silently overwrite existing user files.
+- Do not execute arbitrary scripts or hooks from feature manifests.
+- Test generated output, not only generator internals.
+- Run formatting, vet, tests and build checks appropriate to the changed code.
+- Update or add specifications and acceptance tests when behaviour changes.
 
-## Git
+## Git and changes
 
-- Use a feature branch and pull request for substantial work.
-- Keep commits attributed only to the human author. Do not add automation attribution.
-- Commits follow Conventional Commits: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`, with an optional scope like `feat(cli):`. A short first line, then a sentence or two of why when it helps.
-- Commits and pull requests carry no AI attribution: no `Co-Authored-By` for a tool, no "Generated with" line.
-- Release notes follow one format, the same in goilerplate, moin and shadcn-templ, so the eye finds things fast. The same text is the GitHub release (which `goilerplate changelog` shows) and the newest section of `CHANGELOG.md` (`## v…`, the date like `November 3, 2026`, then the notes), which `/changelog` shows:
-  - First line: `**In short:**` and one sentence, what is new and why to update.
-  - Then these sections in this order, empty ones left out: `### New` (what you can do now), `### Changed` (what behaves differently, everything that could surprise), `### Fixed` (what was broken and works now), `### Removed` (what is gone, and what to use instead), `### Upgrade` (always there: how to update, the exact command).
-  - One bullet per thing: `- **Name**: one sentence of what the user gets.` Commands in backticks. What the user sees, never internals or commit hashes.
-  - A big turning point may add a short `### Why` under the first line. Longer stories go in a blog post or the docs, linked.
-
-## Prose
-
-- Write project text naturally in the project owner's voice.
-- Do not use em dashes or standalone hyphens as sentence separators.
+- Use a focused branch and pull request for substantial work.
+- Keep commits small and use Conventional Commit prefixes: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`.
+- Preserve upstream history and the `upstream` remote relationship.
+- Retain original license and copyright notices for inherited code. Do not replace upstream attribution or imply inherited code was authored by gostart.
+- Do not add secrets, private customer data or local machine configuration.
