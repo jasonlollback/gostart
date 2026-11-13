@@ -30,7 +30,7 @@ func TestSiteRendersPagesRedirectsAndTheRetiredAPI(t *testing.T) {
 		body         string
 		location     string
 	}{
-		{method: "GET", path: "/", status: 200, body: "goilerplate"},
+		{method: "GET", path: "/", status: 200, body: "GoStart"},
 		{method: "GET", path: "/new", status: 200, body: "configurator-install"},
 		{method: "GET", path: "/changelog", status: 200, body: "v4.0.0"},
 		{method: "GET", path: "/docs", status: 200, body: "<html"},
@@ -51,7 +51,7 @@ func TestSiteRendersPagesRedirectsAndTheRetiredAPI(t *testing.T) {
 		{method: "GET", path: "/nothing", status: 404, body: "<html"},
 		{method: "GET", path: "/../etc/passwd", status: 404},
 		{method: "GET", path: "/assets/../../go.mod", status: 404},
-		{method: "POST", path: "/v1/generate", status: 410, body: "go install github.com/axadrn/goilerplate/v4/cmd/goilerplate@latest"},
+		{method: "POST", path: "/v1/generate", status: 410, body: "go install github.com/jasonlollback/gostart/v4/cmd/gostart@latest"},
 		{method: "GET", path: "/healthz", status: 204},
 	} {
 		request := httptest.NewRequest(test.method, test.path, nil)
