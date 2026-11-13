@@ -8,15 +8,15 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/axadrn/goilerplate/v4/generator"
-	"github.com/axadrn/goilerplate/v4/internal/project"
-	projectupdate "github.com/axadrn/goilerplate/v4/internal/update"
+	"github.com/jasonlollback/gostart/v4/generator"
+	"github.com/jasonlollback/gostart/v4/internal/project"
+	projectupdate "github.com/jasonlollback/gostart/v4/internal/update"
 	"golang.org/x/mod/semver"
 )
 
 func (a *App) updateProject(ctx context.Context, arguments []string) error {
 	if len(arguments) != 0 {
-		return errors.New("usage: goilerplate update")
+		return errors.New("usage: gostart update")
 	}
 	directory := a.WorkingDirectory
 	if directory == "" {
@@ -36,18 +36,18 @@ func (a *App) updateProject(ctx context.Context, arguments []string) error {
 	}
 	current := a.templateVersion()
 	if lock.TemplateVersion == current {
-		a.printInfo("Already using goilerplate template " + current)
+		a.printInfo("Already using gostart template " + current)
 		return nil
 	}
 	if err := checkUpdatable(lock.TemplateVersion, current); err != nil {
 		return err
 	}
 	if a.FetchTemplate == nil {
-		return errors.New("goilerplate update cannot download templates in this build")
+		return errors.New("gostart update cannot download templates in this build")
 	}
 	oldFiles, err := a.FetchTemplate(ctx, lock.TemplateVersion)
 	if errors.Is(err, projectupdate.ErrVersionNotFound) {
-		return fmt.Errorf("goilerplate %s was not found on the Go module proxy, so its template cannot be compared", lock.TemplateVersion)
+		return fmt.Errorf("gostart %s was not found on the Go module proxy, so its template cannot be compared", lock.TemplateVersion)
 	}
 	if err != nil {
 		return err
@@ -61,7 +61,7 @@ func (a *App) updateProject(ctx context.Context, arguments []string) error {
 		return err
 	}
 
-	workspace, err := os.MkdirTemp("", "goilerplate-update-*")
+	workspace, err := os.MkdirTemp("", "gostart-update-*")
 	if err != nil {
 		return fmt.Errorf("create update workspace: %w", err)
 	}
@@ -69,11 +69,11 @@ func (a *App) updateProject(ctx context.Context, arguments []string) error {
 	configuration := lock.Config
 	oldRoot := filepath.Join(workspace, "old")
 	if err := renderTree(oldTemplate, configuration, oldRoot); err != nil {
-		return fmt.Errorf("render goilerplate %s: %w", lock.TemplateVersion, err)
+		return fmt.Errorf("render gostart %s: %w", lock.TemplateVersion, err)
 	}
 	newRoot := filepath.Join(workspace, "new")
 	if err := renderTree(newTemplate, configuration, newRoot); err != nil {
-		return fmt.Errorf("render goilerplate %s: %w", current, err)
+		return fmt.Errorf("render gostart %s: %w", current, err)
 	}
 	result, err := projectupdate.Merge(ctx, repository, oldRoot, newRoot, current)
 	if err != nil {
@@ -86,21 +86,21 @@ func (a *App) updateProject(ctx context.Context, arguments []string) error {
 // checkUpdatable says plainly when a project cannot be updated by this CLI.
 func checkUpdatable(projectVersion, current string) error {
 	if !semver.IsValid(projectVersion) {
-		return fmt.Errorf("goilerplate.lock names an invalid template version %q", projectVersion)
+		return fmt.Errorf("gostart.lock names an invalid template version %q", projectVersion)
 	}
 	if semver.Compare(semver.Major(projectVersion), projectupdate.FirstUpdatableMajor) < 0 {
-		return fmt.Errorf("this project was made with goilerplate %s. goilerplate update works for projects made with %s or newer. The project keeps working as it is", projectVersion, projectupdate.FirstUpdatableMajor)
+		return fmt.Errorf("this project was made with gostart %s. gostart update works for projects made with %s or newer. The project keeps working as it is", projectVersion, projectupdate.FirstUpdatableMajor)
 	}
 	if semver.Prerelease(projectVersion) == "-dev" {
-		return fmt.Errorf("this project was made with a development build of goilerplate (%s), which has no published template to update from", projectVersion)
+		return fmt.Errorf("this project was made with a development build of gostart (%s), which has no published template to update from", projectVersion)
 	}
 	if semver.Compare(projectVersion, current) > 0 {
-		return fmt.Errorf("this project uses goilerplate %s, which is newer than this CLI (%s). Update the CLI: go install github.com/axadrn/goilerplate/v4/cmd/goilerplate@latest", projectVersion, current)
+		return fmt.Errorf("this project uses gostart %s, which is newer than this CLI (%s). Update the CLI: go install github.com/jasonlollback/gostart/v4/cmd/gostart@latest", projectVersion, current)
 	}
 	return nil
 }
 
-// renderTree renders a template the way goilerplate new does: through the
+// renderTree renders a template the way gostart new does: through the
 // same archive and extraction, so both trees match a generated project.
 func renderTree(template generator.Template, configuration generator.Config, destination string) error {
 	var archive bytes.Buffer
