@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/axadrn/goilerplate/v4/generator"
+	"github.com/jasonlollback/gostart/v4/generator"
 )
 
 func TestInspectChecksProjectAndSelectedTools(t *testing.T) {
@@ -264,7 +264,7 @@ func writeProject(t *testing.T, root string, lock generator.LockFile) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err := os.WriteFile(filepath.Join(root, "goilerplate.lock"), encoded, 0o644); err != nil {
+	if err := os.WriteFile(filepath.Join(root, "gostart.lock"), encoded, 0o644); err != nil {
 		t.Fatal(err)
 	}
 	if err := os.WriteFile(filepath.Join(root, "go.mod"), []byte("module "+lock.Config.ModulePath+"\n\ngo 1.25.0\n"), 0o644); err != nil {
