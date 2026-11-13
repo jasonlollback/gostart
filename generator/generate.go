@@ -93,7 +93,7 @@ func (t Template) Generate(destination string, config Config) error {
 		TemplateVersion: t.version,
 		Config:          normalized,
 	}
-	if err := writeJSON(filepath.Join(destination, "goilerplate.lock"), lock); err != nil {
+	if err := writeJSON(filepath.Join(destination, "gostart.lock"), lock); err != nil {
 		return fmt.Errorf("write lock file: %w", err)
 	}
 	return nil
