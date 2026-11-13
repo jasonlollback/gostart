@@ -35,7 +35,7 @@ Edit it as the product develops. Add business rules that should survive across t
 
 htmx and Datastar projects serve `/llms.txt` as a small index of public product documentation. SvelteKit and Headless do not serve it. When the Docs module is selected, every page also has a raw Markdown version.
 
-[Open the live goilerplate llms.txt](/llms.txt)
+[Open the live gostart llms.txt](/llms.txt)
 
 ```text
 /llms.txt
@@ -52,4 +52,4 @@ The public index never exposes `AGENTS.md`, source code, environment values, or 
 
 The files ship as ordinary owned code. Change the copy, add documentation pages, or remove the public route when the product should not publish LLM-readable documentation.
 
-Do not copy goilerplate documentation into the generated project. The included pages are a generic, stack-aware example for documenting the product being built.
+Do not copy gostart documentation into the generated project. The included pages are a generic, stack-aware example for documenting the product being built.
