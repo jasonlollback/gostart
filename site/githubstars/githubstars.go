@@ -11,7 +11,7 @@ import (
 )
 
 // Repo is the repo whose stars the navbar shows.
-const Repo = "axadrn/gostart"
+const Repo = "jasonlollback/gostart"
 
 // APIURL is where the stars come from; tests point it at a fake.
 var APIURL = "https://api.github.com"
