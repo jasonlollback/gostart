@@ -12,7 +12,7 @@ Run the native Go test command:
 go test ./...
 ```
 
-That is the whole interface. There is no goilerplate test wrapper.
+That is the whole interface. There is no GoStart test wrapper.
 
 SQLite tests need nothing else. PostgreSQL tests require Docker to be running. They start isolated PostgreSQL 17 containers automatically and remove them when the package finishes.
 
