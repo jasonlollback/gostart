@@ -24,7 +24,7 @@ func WriteArchive(destination io.Writer, templateVersion string, config Config) 
 
 // WriteArchive renders one project from this template version.
 func (t Template) WriteArchive(destination io.Writer, config Config) error {
-	root, err := os.MkdirTemp("", "goilerplate-archive-")
+	root, err := os.MkdirTemp("", "gostart-archive-")
 	if err != nil {
 		return fmt.Errorf("create archive workspace: %w", err)
 	}
