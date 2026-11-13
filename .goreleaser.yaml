@@ -1,11 +1,11 @@
 version: 2
 
-project_name: goilerplate
+project_name: gostart
 
 builds:
-  - id: goilerplate
-    main: ./cmd/goilerplate
-    binary: goilerplate
+  - id: gostart
+    main: ./cmd/gostart
+    binary: gostart
     env:
       - CGO_ENABLED=0
     goos:
@@ -21,9 +21,9 @@ builds:
     mod_timestamp: "{{ .CommitTimestamp }}"
 
 archives:
-  - id: goilerplate
+  - id: gostart
     ids:
-      - goilerplate
+      - gostart
     formats:
       - tar.gz
     name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
