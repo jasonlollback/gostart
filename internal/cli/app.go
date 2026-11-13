@@ -7,8 +7,8 @@ import (
 	"io"
 	"io/fs"
 
-	"github.com/axadrn/goilerplate/v4/internal/doctor"
-	"github.com/axadrn/goilerplate/v4/internal/github"
+	"github.com/jasonlollback/gostart/v4/internal/doctor"
+	"github.com/jasonlollback/gostart/v4/internal/github"
 )
 
 type App struct {
@@ -20,7 +20,7 @@ type App struct {
 	FetchReleases       func(context.Context) ([]github.Release, error)
 	RunDoctor           func(context.Context, string) doctor.Report
 	// FetchTemplate returns the template tree of a released version, which
-	// goilerplate update compares with the current one.
+	// gostart update compares with the current one.
 	FetchTemplate func(context.Context, string) (fs.FS, error)
 }
 
@@ -56,11 +56,11 @@ func (a *App) help(arguments []string) error {
 		return nil
 	}
 	if len(arguments) != 1 {
-		return errors.New("usage: goilerplate help [command]")
+		return errors.New("usage: gostart help [command]")
 	}
 	usage := map[string][]string{
 		"new": {
-			"goilerplate new --module <path> [options] <directory>",
+			"gostart new --module <path> [options] <directory>",
 			"Run without options in a terminal to open interactive setup.",
 			"Renders the project on this machine. No account and no network needed.",
 			"--module example.com/acme is the Go module path. Required with options.",
@@ -77,10 +77,10 @@ func (a *App) help(arguments []string) error {
 			"--headless is the Go backend with the JSON API and no native frontend.",
 			"--framework svelte is a SvelteKit app on the JSON API. It needs Node.js 22.17 or newer and pnpm.",
 		},
-		"update":    {"goilerplate update", "Create a Git branch containing the new generated template.", "Works for projects made with goilerplate v4 or newer."},
-		"changelog": {"goilerplate changelog", "Show published GitHub release notes."},
-		"doctor":    {"goilerplate doctor", "Check tools and configuration for a generated project."},
-		"version":   {"goilerplate version", "Show the CLI version."},
+		"update":    {"gostart update", "Create a Git branch containing the new generated template.", "Works for projects made with gostart v4 or newer."},
+		"changelog": {"gostart changelog", "Show published GitHub release notes."},
+		"doctor":    {"gostart doctor", "Check tools and configuration for a generated project."},
+		"version":   {"gostart version", "Show the CLI version."},
 	}
 	lines, ok := usage[arguments[0]]
 	if !ok {
@@ -102,7 +102,7 @@ func (a *App) help(arguments []string) error {
 
 func (a *App) version(arguments []string) error {
 	if len(arguments) != 0 {
-		return errors.New("usage: goilerplate version")
+		return errors.New("usage: gostart version")
 	}
 	if a.StyledOutput {
 		a.printHeading("version")
@@ -118,7 +118,7 @@ func (a *App) printUsage() {
 	if a.StyledOutput {
 		a.printHeading("cli")
 		fmt.Fprintln(a.Out)
-		a.printField("Usage", "goilerplate <command>")
+		a.printField("Usage", "gostart <command>")
 		fmt.Fprintln(a.Out)
 		fmt.Fprintln(a.Out, a.theme().brand.Render("Commands"))
 		a.printCommand("new", "Generate a new project")
@@ -128,9 +128,9 @@ func (a *App) printUsage() {
 		a.printCommand("version", "Show the CLI version")
 		return
 	}
-	fmt.Fprintln(a.Out, "goilerplate")
+	fmt.Fprintln(a.Out, "gostart")
 	fmt.Fprintln(a.Out)
-	fmt.Fprintln(a.Out, "Usage: goilerplate <command>")
+	fmt.Fprintln(a.Out, "Usage: gostart <command>")
 	fmt.Fprintln(a.Out)
 	fmt.Fprintln(a.Out, "Commands:")
 	fmt.Fprintln(a.Out, "  new        Generate a new project")
