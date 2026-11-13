@@ -19,9 +19,9 @@ specification attached to each task.
 **Outcome:** A clean generator repository with documented decisions,
 reproducible Go tooling and a passing baseline CI workflow.
 
--   `GS-001` Repository foundation and conventions --- `done`
--   `GS-002` Generator CLI skeleton --- `done`
--   `GS-003` CI for generator repository --- `done`
+-   `GS-001` Repository foundation and conventions --- `ported in gostart_v1; integration pending`
+-   `GS-002` Generator CLI skeleton --- `ported in gostart_v1; integration pending`
+-   `GS-003` CI for generator repository --- `ported in gostart_v1; integration pending`
 
 Exit criteria: generator builds, tests run, CLI help works, CI is green.
 
@@ -30,10 +30,10 @@ Exit criteria: generator builds, tests run, CLI help works, CI is green.
 **Outcome:** Generate a minimal, compilable Go application from embedded
 templates.
 
--   `GS-010` Minimal generated application reference --- `done`
--   `GS-011` Embedded template renderer --- `done`
--   `GS-012` Safe output writer and collision detection --- `done`
--   `GS-013` Golden fixture tests --- `done`
+-   `GS-010` Minimal generated application reference --- `ported in gostart_v1; integration pending`
+-   `GS-011` Embedded template renderer --- `ported in gostart_v1; integration pending`
+-   `GS-012` Safe output writer and collision detection --- `ported in gostart_v1; integration pending`
+-   `GS-013` Golden fixture tests --- `ported in gostart_v1; integration pending`
 
 Exit criteria: minimal output is deterministic, formatted, tested and
 buildable.
