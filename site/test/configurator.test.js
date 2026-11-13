@@ -38,14 +38,14 @@ function minimalState() {
 test("builds the minimal command with providers and no modules", () => {
   assert.equal(
     buildCommand(minimalState()),
-    "goilerplate new --name 'My App' --module example.com/my-app --framework htmx --database sqlite --payment stripe --mail smtp ./my-app",
+    "gostart new --name 'My App' --module example.com/my-app --framework htmx --database sqlite --payment stripe --mail smtp ./my-app",
   );
 });
 
 test("builds every flag in CLI parser order", () => {
   assert.equal(
     buildCommand(fullState()),
-    "goilerplate new --name 'My App' --module example.com/my-app --framework datastar --database postgres --payment stripe --mail resend --workspaces --oauth google,github --storage --content blog,docs ./my-app",
+    "gostart new --name 'My App' --module example.com/my-app --framework datastar --database postgres --payment stripe --mail resend --workspaces --oauth google,github --storage --content blog,docs ./my-app",
   );
 });
 
@@ -65,13 +65,13 @@ test("adds the JSON API to an htmx or Datastar command", () => {
   minimal.api = true;
   assert.equal(
     buildCommand(minimal),
-    "goilerplate new --name 'My App' --module example.com/my-app --framework htmx --api --database sqlite --payment stripe --mail smtp ./my-app",
+    "gostart new --name 'My App' --module example.com/my-app --framework htmx --api --database sqlite --payment stripe --mail smtp ./my-app",
   );
   const full = fullState();
   full.api = true;
   assert.equal(
     buildCommand(full),
-    "goilerplate new --name 'My App' --module example.com/my-app --framework datastar --api --database postgres --payment stripe --mail resend --workspaces --oauth google,github --storage --content blog,docs ./my-app",
+    "gostart new --name 'My App' --module example.com/my-app --framework datastar --api --database postgres --payment stripe --mail resend --workspaces --oauth google,github --storage --content blog,docs ./my-app",
   );
 });
 
@@ -81,13 +81,13 @@ test("builds Headless commands without a framework or content", () => {
   minimal.api = true;
   assert.equal(
     buildCommand(minimal),
-    "goilerplate new --name 'My App' --module example.com/my-app --headless --database sqlite --payment stripe --mail smtp ./my-app",
+    "gostart new --name 'My App' --module example.com/my-app --headless --database sqlite --payment stripe --mail smtp ./my-app",
   );
   const full = fullState();
   full.framework = "headless";
   assert.equal(
     buildCommand(full),
-    "goilerplate new --name 'My App' --module example.com/my-app --headless --database postgres --payment stripe --mail resend --workspaces --oauth google,github --storage ./my-app",
+    "gostart new --name 'My App' --module example.com/my-app --headless --database postgres --payment stripe --mail resend --workspaces --oauth google,github --storage ./my-app",
   );
 });
 
@@ -97,19 +97,19 @@ test("builds SvelteKit commands with the framework, without --api or content", (
   minimal.api = true;
   assert.equal(
     buildCommand(minimal),
-    "goilerplate new --name 'My App' --module example.com/my-app --framework svelte --database sqlite --payment stripe --mail smtp ./my-app",
+    "gostart new --name 'My App' --module example.com/my-app --framework svelte --database sqlite --payment stripe --mail smtp ./my-app",
   );
   minimal.mcp = true;
   assert.equal(
     buildCommand(minimal),
-    "goilerplate new --name 'My App' --module example.com/my-app --framework svelte --mcp --database sqlite --payment stripe --mail smtp ./my-app",
+    "gostart new --name 'My App' --module example.com/my-app --framework svelte --mcp --database sqlite --payment stripe --mail smtp ./my-app",
   );
   const full = fullState();
   full.framework = "svelte";
   full.mcp = true;
   assert.equal(
     buildCommand(full),
-    "goilerplate new --name 'My App' --module example.com/my-app --framework svelte --mcp --database postgres --payment stripe --mail resend --workspaces --oauth google,github --storage ./my-app",
+    "gostart new --name 'My App' --module example.com/my-app --framework svelte --mcp --database postgres --payment stripe --mail resend --workspaces --oauth google,github --storage ./my-app",
   );
 });
 
@@ -119,14 +119,14 @@ test("adds the MCP server after the JSON API or Headless", () => {
   minimal.mcp = true;
   assert.equal(
     buildCommand(minimal),
-    "goilerplate new --name 'My App' --module example.com/my-app --framework htmx --api --mcp --database sqlite --payment stripe --mail smtp ./my-app",
+    "gostart new --name 'My App' --module example.com/my-app --framework htmx --api --mcp --database sqlite --payment stripe --mail smtp ./my-app",
   );
   const full = fullState();
   full.framework = "headless";
   full.mcp = true;
   assert.equal(
     buildCommand(full),
-    "goilerplate new --name 'My App' --module example.com/my-app --headless --mcp --database postgres --payment stripe --mail resend --workspaces --oauth google,github --storage ./my-app",
+    "gostart new --name 'My App' --module example.com/my-app --headless --mcp --database postgres --payment stripe --mail resend --workspaces --oauth google,github --storage ./my-app",
   );
 });
 
