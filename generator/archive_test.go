@@ -36,11 +36,11 @@ func TestWriteArchiveIsByteDeterministic(t *testing.T) {
 		if err != nil {
 			t.Fatalf("read archive: %v", err)
 		}
-		if header.Name == "goilerplate.lock" {
+		if header.Name == "gostart.lock" {
 			seenLock = true
 		}
 	}
 	if !seenLock {
-		t.Fatal("archive does not contain goilerplate.lock")
+		t.Fatal("archive does not contain gostart.lock")
 	}
 }
