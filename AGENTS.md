@@ -3,48 +3,48 @@
 ## Product identity
 
 - The product and CLI are named `gostart`, always lowercase.
-- This repository is an independent fork of Goilerplate. Do not describe gostart as the original Goilerplate product.
-- Generated applications are self-contained and must not depend on gostart at runtime.
-- Do not add automatic template-update functionality.
+- This repository is a customised fork of Goilerplate. Do not describe gostart as the original Goilerplate product.
+- Goilerplate's existing generator, template-selection mechanism and project structure are the implementation foundation.
+- Generated applications remain independently owned Go projects. Do not add a runtime dependency on gostart unless explicitly designed and approved.
 
-## Product and architecture
+## Working with the existing codebase
 
-- Read `docs/PRODUCT.md`, `docs/ARCHITECTURE.md` and `docs/DECISIONS.md` before changing generator or template architecture.
-- Read the relevant specification in `specs/` before implementing a backlog item.
-- Keep `docs/BACKLOG.md` current when work is completed or scope changes.
-- The initial generated application profile is Go, `net/http`, `http.ServeMux`, SQLite with `modernc.org/sqlite`, `database/sql`, sqlc, Templ, Tailwind CSS 4, shadcn-templ, HTMX, slog and tint.
-- V1 supports SQLite only. Do not add PostgreSQL or alternative frontend frameworks without an explicit product decision.
-- Use feature-oriented packages. Do not impose `/internal/platform` and `/internal/modules`.
-- Prefer the standard library. Add dependencies only when they materially improve the result.
-- Avoid interfaces without a real substitution or testing need.
+- Understand and follow the existing Goilerplate implementation before proposing architectural changes.
+- Prefer incremental customisation of existing packages, commands and template conventions over wholesale rewrites.
+- Preserve working capabilities unless there is a clear product, maintenance, security or complexity reason to change or remove them.
+- Add features using the existing generator's established patterns where practical.
+- Remove unwanted capabilities deliberately, including their template files, dependencies, configuration, tests, documentation and UI references.
+- Avoid introducing a second template engine, feature registry or parallel architecture without a demonstrated need.
+- Keep changes focused and preserve existing tests. Add regression tests for changed generator behaviour and generated output.
+- Do not port the gostart_v1 implementation or impose its architecture as a requirement.
+
+## Product preferences and reference material
+
+- The former `gostart_v1` repository contains useful product preferences and design notes, not a binding implementation specification.
+- Its documents may inform decisions about generated app defaults, including Go/net/http, SQLite, sqlc, Templ, Tailwind CSS 4, shadcn-templ, HTMX, Taskfile, a separate tools module, Docker and GitHub Actions.
+- These preferences should be evaluated against the existing Goilerplate implementation and actual product requirements. Do not force them all into the codebase.
+- Do not assume the v1 non-goals or feature scope apply to the canonical repository; decide feature-by-feature.
 
 ## Generated application conventions
 
-- Use `modernc.org/sqlite` with `_time_format=sqlite&_timezone=UTC`.
-- Use `database/sql`, WAL, foreign keys, STRICT tables, TEXT timestamps and UUIDv7 identifiers.
-- Use sqlc for typed query generation.
-- Keep development tools in a separate `/tools` Go module.
-- Use Taskfile, not Makefiles.
-- Keep `.env.example` aligned with the selected generated features.
-- Initial administrator provisioning is triggered by `ADMIN_EMAIL` alone, is idempotent, and must not continually re-promote an account on every startup.
-- Authentication uses email one-time codes and database-backed sessions; do not introduce password authentication by default.
-- Migrations are embedded, sequential, forward-only and checksum-verified. They run before the HTTP server becomes ready.
+- Prefer idiomatic Go and the standard library when appropriate.
+- Keep generated code understandable and independently maintainable.
+- Avoid dependencies and abstractions that do not provide clear value.
+- Apply secure defaults to authentication, sessions, database access, deployment and secrets.
+- Where SQLite with modernc.org/sqlite is used, the preferred connection parameters are `_time_format=sqlite&_timezone=UTC`.
+- If initial administrator provisioning is implemented using `ADMIN_EMAIL`, it should be idempotent and must not continually re-promote an account on every startup.
 
 ## Engineering
 
-- Keep packages small and concrete. Separate rendering, validation and filesystem writing.
-- Validate the complete generation plan before writing output.
-- Generation must be deterministic for identical inputs.
-- Never silently overwrite existing user files.
-- Do not execute arbitrary scripts or hooks from feature manifests.
-- Test generated output, not only generator internals.
-- Run formatting, vet, tests and build checks appropriate to the changed code.
-- Update or add specifications and acceptance tests when behaviour changes.
-
-## Git and changes
-
-- Use a focused branch and pull request for substantial work.
-- Keep commits small and use Conventional Commit prefixes: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, `test:`.
-- Preserve upstream history and the `upstream` remote relationship.
-- Retain original license and copyright notices for inherited code. Do not replace upstream attribution or imply inherited code was authored by gostart.
+- Keep changes small, testable and consistent with repository conventions.
+- Run formatting, tests, vet and relevant generation/build checks.
+- Test generated projects as well as generator internals when templates or generation behaviour change.
+- Update user-facing documentation and examples when behaviour changes.
 - Do not add secrets, private customer data or local machine configuration.
+
+## Git and upstream
+
+- Preserve the original Goilerplate Git history and upstream relationship.
+- Retain original license files, copyright notices and attribution for inherited code.
+- Review upstream changes selectively; do not blindly merge features that conflict with gostart's direction.
+- Use focused branches and pull requests for substantial changes.
