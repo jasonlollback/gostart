@@ -16,11 +16,11 @@ import (
 	"testing/fstest"
 	"time"
 
-	"github.com/axadrn/goilerplate/v4/generator"
-	"github.com/axadrn/goilerplate/v4/internal/doctor"
-	"github.com/axadrn/goilerplate/v4/internal/github"
-	"github.com/axadrn/goilerplate/v4/internal/project"
-	projectupdate "github.com/axadrn/goilerplate/v4/internal/update"
+	"github.com/jasonlollback/gostart/v4/generator"
+	"github.com/jasonlollback/gostart/v4/internal/doctor"
+	"github.com/jasonlollback/gostart/v4/internal/github"
+	"github.com/jasonlollback/gostart/v4/internal/project"
+	projectupdate "github.com/jasonlollback/gostart/v4/internal/update"
 )
 
 func TestHelpCoversEveryCommand(t *testing.T) {
@@ -31,7 +31,7 @@ func TestHelpCoversEveryCommand(t *testing.T) {
 			if err := app.Run(context.Background(), []string{"help", command}); err != nil {
 				t.Fatal(err)
 			}
-			if !strings.Contains(output.String(), "goilerplate "+command) {
+			if !strings.Contains(output.String(), "gostart "+command) {
 				t.Fatalf("output = %q", output.String())
 			}
 		})
@@ -44,7 +44,7 @@ func TestUnknownCommandPrintsUsage(t *testing.T) {
 	if err := app.Run(context.Background(), []string{"wat"}); err == nil {
 		t.Fatal("unknown command succeeded")
 	}
-	if !strings.Contains(output.String(), "Usage: goilerplate <command>") {
+	if !strings.Contains(output.String(), "Usage: gostart <command>") {
 		t.Fatalf("output = %q", output.String())
 	}
 }
@@ -249,7 +249,7 @@ func TestNewWithoutArgumentsRequiresInteractiveTerminal(t *testing.T) {
 	app := testApp(&bytes.Buffer{})
 
 	err := app.Run(context.Background(), []string{"new"})
-	if err == nil || !strings.Contains(err.Error(), "usage: goilerplate new") {
+	if err == nil || !strings.Contains(err.Error(), "usage: gostart new") {
 		t.Fatalf("new error = %v", err)
 	}
 }
@@ -365,7 +365,7 @@ func TestNewHelpFlagShowsHelpNew(t *testing.T) {
 		if err != nil {
 			t.Fatalf("new %s error = %v", flag, err)
 		}
-		if !strings.HasPrefix(output.String(), "goilerplate new --module <path> [options] <directory>\n") {
+		if !strings.HasPrefix(output.String(), "gostart new --module <path> [options] <directory>\n") {
 			t.Fatalf("new %s output = %q", flag, output.String())
 		}
 	}
@@ -409,7 +409,7 @@ func TestNewSendsTheMCPServer(t *testing.T) {
 	}
 }
 
-// runNew runs goilerplate new and returns the answers in the lock file of the
+// runNew runs gostart new and returns the answers in the lock file of the
 // generated project.
 func runNew(t *testing.T, arguments []string) generator.Config {
 	t.Helper()
@@ -428,7 +428,7 @@ func runNew(t *testing.T, arguments []string) generator.Config {
 
 func readProjectLock(t *testing.T, root string) (string, generator.Config) {
 	t.Helper()
-	content, err := os.ReadFile(filepath.Join(root, "goilerplate.lock"))
+	content, err := os.ReadFile(filepath.Join(root, "gostart.lock"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -531,15 +531,15 @@ func TestUpdateMergesTheNewTemplateLocally(t *testing.T) {
 	if strings.Join(fetched, ",") != "v4.0.0" {
 		t.Fatalf("fetched = %v", fetched)
 	}
-	branch := "goilerplate-update-v4.1.0"
+	branch := "gostart-update-v4.1.0"
 	if agents := runCLIGit(t, repository, "show", branch+":AGENTS.md"); !strings.HasPrefix(agents, "# AGENTS.md\n") {
 		t.Fatalf("AGENTS.md on %s = %q", branch, agents)
 	}
 	if updated := runCLIGit(t, repository, "show", branch+":README.md"); !strings.HasSuffix(updated, "Our own notes.\n") {
 		t.Fatalf("README.md lost the project's own change: %q", updated)
 	}
-	if lock := runCLIGit(t, repository, "show", branch+":goilerplate.lock"); !strings.Contains(lock, `"template_version": "v4.1.0"`) {
-		t.Fatalf("goilerplate.lock = %q", lock)
+	if lock := runCLIGit(t, repository, "show", branch+":gostart.lock"); !strings.Contains(lock, `"template_version": "v4.1.0"`) {
+		t.Fatalf("gostart.lock = %q", lock)
 	}
 	if current := strings.TrimSpace(runCLIGit(t, repository, "branch", "--show-current")); current != "main" {
 		t.Fatalf("current branch = %q", current)
@@ -562,7 +562,7 @@ func TestUpdateAlreadyOnTheCurrentTemplate(t *testing.T) {
 	if err := app.Run(context.Background(), []string{"update"}); err != nil {
 		t.Fatal(err)
 	}
-	if !strings.Contains(output.String(), "Already using goilerplate template v4.1.0") {
+	if !strings.Contains(output.String(), "Already using gostart template v4.1.0") {
 		t.Fatalf("output = %q", output.String())
 	}
 }
@@ -572,7 +572,7 @@ func TestUpdateExplainsWhatItCannotUpdate(t *testing.T) {
 		project string
 		want    string
 	}{
-		{project: "v3.2.3", want: "made with goilerplate v3.2.3. goilerplate update works for projects made with v4 or newer. The project keeps working as it is"},
+		{project: "v3.2.3", want: "made with gostart v3.2.3. gostart update works for projects made with v4 or newer. The project keeps working as it is"},
 		{project: "v4.0.0-dev", want: "development build"},
 		{project: "v4.2.0", want: "newer than this CLI (v4.1.0)"},
 		{project: "latest", want: "invalid template version"},
@@ -601,12 +601,12 @@ func TestUpdateNamesAVersionMissingFromTheProxy(t *testing.T) {
 		return nil, fmt.Errorf("%w: %s", projectupdate.ErrVersionNotFound, version)
 	}
 	err := app.Run(context.Background(), []string{"update"})
-	if err == nil || !strings.Contains(err.Error(), "goilerplate v4.0.0 was not found on the Go module proxy") {
+	if err == nil || !strings.Contains(err.Error(), "gostart v4.0.0 was not found on the Go module proxy") {
 		t.Fatalf("update error = %v", err)
 	}
 }
 
-// lockedRepository creates a Git repository whose goilerplate.lock names version.
+// lockedRepository creates a Git repository whose gostart.lock names version.
 func lockedRepository(t *testing.T, version string) string {
 	t.Helper()
 	config := map[string]any{
@@ -614,7 +614,7 @@ func lockedRepository(t *testing.T, version string) string {
 		"framework": "htmx", "database": "sqlite", "payment": "stripe", "mail": "smtp",
 	}
 	if strings.HasPrefix(version, "v3.") {
-		// goilerplate v3 wrote the edition into every lock file.
+		// gostart v3 wrote the edition into every lock file.
 		config["edition"] = "paid"
 	}
 	lock, err := json.MarshalIndent(map[string]any{
@@ -626,7 +626,7 @@ func lockedRepository(t *testing.T, version string) string {
 		t.Fatal(err)
 	}
 	repository := t.TempDir()
-	writeCLIFiles(t, repository, map[string]string{"goilerplate.lock": string(lock) + "\n"})
+	writeCLIFiles(t, repository, map[string]string{"gostart.lock": string(lock) + "\n"})
 	runCLIGit(t, repository, "init", "-b", "main")
 	runCLIGit(t, repository, "config", "user.name", "Test User")
 	runCLIGit(t, repository, "config", "user.email", "test@example.com")
