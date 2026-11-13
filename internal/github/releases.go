@@ -12,8 +12,8 @@ import (
 )
 
 const ReleaseLimit = 10
-const ReleasesPageURL = "https://github.com/axadrn/goilerplate/releases"
-const releasesURL = "https://api.github.com/repos/axadrn/goilerplate/releases?per_page=10"
+const ReleasesPageURL = "https://github.com/jasonlollback/gostart/releases"
+const releasesURL = "https://api.github.com/repos/jasonlollback/gostart/releases?per_page=10"
 const maxReleasesResponseSize = 1 << 20
 
 type Release struct {
@@ -34,7 +34,7 @@ func ListReleases(ctx context.Context, client *http.Client) ([]Release, error) {
 		return nil, err
 	}
 	request.Header.Set("Accept", "application/vnd.github+json")
-	request.Header.Set("User-Agent", "goilerplate")
+	request.Header.Set("User-Agent", "gostart")
 	response, err := client.Do(request)
 	if err != nil {
 		return nil, fmt.Errorf("load release notes: %w", err)
