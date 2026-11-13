@@ -42,9 +42,9 @@ func projectGitEnvironment() []string {
 		environment = append(environment, value)
 	}
 	return append(environment,
-		"GIT_AUTHOR_NAME=goilerplate",
+		"GIT_AUTHOR_NAME=gostart",
 		"GIT_AUTHOR_EMAIL=",
-		"GIT_COMMITTER_NAME=goilerplate",
+		"GIT_COMMITTER_NAME=gostart",
 		"GIT_COMMITTER_EMAIL=",
 	)
 }
