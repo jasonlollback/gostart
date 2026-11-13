@@ -10,29 +10,29 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/axadrn/goilerplate/v4/site/brand"
-	"github.com/axadrn/goilerplate/v4/site/githubstars"
-	"github.com/axadrn/goilerplate/v4/site/sitectx"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/button"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/icon"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/sheet"
-	"github.com/axadrn/goilerplate/v4/site/ui/icons"
-	"github.com/axadrn/goilerplate/v4/site/ui/utils"
+	"github.com/jasonlollback/gostart/v4/site/brand"
+	"github.com/jasonlollback/gostart/v4/site/githubstars"
+	"github.com/jasonlollback/gostart/v4/site/sitectx"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/button"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/icon"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/sheet"
+	"github.com/jasonlollback/gostart/v4/site/ui/icons"
+	"github.com/jasonlollback/gostart/v4/site/ui/utils"
 )
 
-// GitHubURL is the open source repository of goilerplate.
+// GitHubURL is the open source repository of GoStart.
 const GitHubURL = "https://github.com/" + githubstars.Repo
 
-// MoinURL is moin, which deploys and backs up the apps goilerplate makes.
+// MoinURL is moin, which deploys and backs up the apps GoStart makes.
 const MoinURL = "https://moin.run"
 
 // ShadcnTemplURL is the component library every page is built with.
 const ShadcnTemplURL = "https://shadcn-templ.com"
 
 // RefURL links another product of the same maker and tells it where on
-// goilerplate.com the link sits, such as RefURL(MoinURL, "footer").
+// GoStart.com the link sits, such as RefURL(MoinURL, "footer").
 func RefURL(url, placement string) string {
-	return url + "/?ref=goilerplate-" + placement
+	return url + "/?ref=gostart-" + placement
 }
 
 // navItem is one link of the main navigation.
