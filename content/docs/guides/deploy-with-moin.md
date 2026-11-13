@@ -1,12 +1,12 @@
 ---
 title: "Deploy with moin"
-description: "Your goilerplate app live on your own server. HTTPS and SQLite backups included."
+description: "Your GoStart app live on your own server. HTTPS and SQLite backups included."
 order: 2
 ---
 
 ## TLDR
 
-[moin](https://moin.run/?ref=goilerplate-guide) deploys your goilerplate app to your own server and backs up its SQLite database. Same maker, made for this stack.
+[moin](https://moin.run/?ref=gostart-guide) deploys your GoStart app to your own server and backs up its SQLite database. Same maker, made for this stack.
 
 ```bash
 moin servers add web-1
@@ -15,7 +15,7 @@ moin env set APP_URL=https://acme.com SMTP_HOST=smtp.acme.com ...
 moin deploy
 ```
 
-Your app is live with HTTPS on your domain. Every change of its database is backed up to your bucket. You set no database path: the `compose.yml` goilerplate wrote already keeps it.
+Your app is live with HTTPS on your domain. Every change of its database is backed up to your bucket. You set no database path: the `compose.yml` GoStart generated already keeps it.
 
 ## ELI5
 
@@ -43,7 +43,7 @@ curl -fsSL https://moin.run/cli.sh | sh
 
 ## 2. Log in
 
-[Start the free trial](https://moin.run/auth?ref=goilerplate-guide): 30 days, no card. Create a personal API token under **Settings → Tokens**, then:
+[Start the free trial](https://moin.run/auth?ref=gostart-guide): 30 days, no card. Create a personal API token under **Settings → Tokens**, then:
 
 ```bash
 moin login
@@ -105,7 +105,7 @@ Point an A record of `acme.com` at the server's IP. moin shows the address and t
 moin deploy
 ```
 
-moin sends your code to your bucket. The server builds the Dockerfile goilerplate wrote, waits until `/healthz` answers and puts the app live. The log names the database it found in `/app/data` and ends with `v1 is live`.
+moin sends your code to your bucket. The server builds the Dockerfile GoStart generated, waits until `/healthz` answers and puts the app live. The log names the database it found in `/app/data` and ends with `v1 is live`.
 
 Every next deploy is the same one command. moin takes a snapshot of the database before each one.
 
@@ -126,8 +126,8 @@ moin restart
 
 ## Next
 
-- [Getting started](https://moin.run/docs/getting-started?ref=goilerplate-guide) on moin.
-- [Backups and restore](https://moin.run/docs/guides/backups?ref=goilerplate-guide).
-- [Your data](https://moin.run/docs/guides/data?ref=goilerplate-guide): tables, rows and SQL.
-- [Push to deploy](https://moin.run/docs/guides/deploy?ref=goilerplate-guide#push-to-deploy-with-github-actions) with GitHub Actions.
+- [Getting started](https://moin.run/docs/getting-started?ref=gostart-guide) on moin.
+- [Backups and restore](https://moin.run/docs/guides/backups?ref=gostart-guide).
+- [Your data](https://moin.run/docs/guides/data?ref=gostart-guide): tables, rows and SQL.
+- [Push to deploy](https://moin.run/docs/guides/deploy?ref=gostart-guide#push-to-deploy-with-github-actions) with GitHub Actions.
 - [Deployment](/docs/guides/deployment) for any other host.
