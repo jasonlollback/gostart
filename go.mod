@@ -1,4 +1,4 @@
-module github.com/axadrn/goilerplate/v4
+module github.com/jasonlollback/gostart/v4
 
 go 1.26.0
 
