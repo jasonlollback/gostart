@@ -13,7 +13,7 @@ import (
 func TestMergeCreatesUpdateBranchWithoutTouchingCurrentWorktree(t *testing.T) {
 	repositoryRoot := testRepository(t, map[string]string{
 		"app.txt":          "title\nkeep one\nkeep two\nkeep three\ncustom: default\nfooter\n",
-		"goilerplate.lock": "old lock\n",
+		"gostart.lock": "old lock\n",
 		"removed.txt":      "remove me\n",
 	})
 	writeFiles(t, repositoryRoot, map[string]string{
@@ -24,13 +24,13 @@ func TestMergeCreatesUpdateBranchWithoutTouchingCurrentWorktree(t *testing.T) {
 	runTestGit(t, repositoryRoot, "-c", "user.name=Test User", "-c", "user.email=test@example.com", "commit", "-m", "Customer changes")
 	oldRoot := testTree(t, map[string]string{
 		"app.txt":          "title\nkeep one\nkeep two\nkeep three\ncustom: default\nfooter\n",
-		"goilerplate.lock": "old lock\n",
+		"gostart.lock": "old lock\n",
 		"removed.txt":      "remove me\n",
 	})
 	newRoot := testTree(t, map[string]string{
 		"app.txt":          "new title\nkeep one\nkeep two\nkeep three\ncustom: default\nfooter\n",
 		"added.txt":        "new file\n",
-		"goilerplate.lock": "new lock\n",
+		"gostart.lock": "new lock\n",
 	})
 
 	repository, err := Open(context.Background(), repositoryRoot)
@@ -42,7 +42,7 @@ func TestMergeCreatesUpdateBranchWithoutTouchingCurrentWorktree(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if result.Branch != "goilerplate-update-v3.1.0" || len(result.Conflicts) != 0 {
+	if result.Branch != "gostart-update-v3.1.0" || len(result.Conflicts) != 0 {
 		t.Fatalf("result = %#v", result)
 	}
 	if !slices.Contains(result.Updated, "app.txt") || !slices.Contains(result.Updated, "added.txt") || !slices.Contains(result.Updated, "removed.txt") {
@@ -57,7 +57,7 @@ func TestMergeCreatesUpdateBranchWithoutTouchingCurrentWorktree(t *testing.T) {
 	if branch := strings.TrimSpace(runTestGit(t, repositoryRoot, "branch", "--show-current")); branch != "main" {
 		t.Fatalf("current branch = %q", branch)
 	}
-	if author := strings.TrimSpace(runTestGit(t, repositoryRoot, "show", "-s", "--format=%an <%ae>", result.Branch)); author != "goilerplate <>" {
+	if author := strings.TrimSpace(runTestGit(t, repositoryRoot, "show", "-s", "--format=%an <%ae>", result.Branch)); author != "gostart <>" {
 		t.Fatalf("update author = %q", author)
 	}
 	if content := runTestGit(t, repositoryRoot, "show", result.Branch+":app.txt"); content != "new title\nkeep one\nkeep two\nkeep three\ncustom: customer\nfooter\n" {
@@ -74,12 +74,12 @@ func TestMergeCreatesUpdateBranchWithoutTouchingCurrentWorktree(t *testing.T) {
 }
 
 func TestMergeWritesGitConflictMarkersOnNewBranch(t *testing.T) {
-	repositoryRoot := testRepository(t, map[string]string{"app.txt": "color: red\n", "goilerplate.lock": "old\n"})
+	repositoryRoot := testRepository(t, map[string]string{"app.txt": "color: red\n", "gostart.lock": "old\n"})
 	writeFiles(t, repositoryRoot, map[string]string{"app.txt": "color: blue\n"})
 	runTestGit(t, repositoryRoot, "add", ".")
 	runTestGit(t, repositoryRoot, "-c", "user.name=Test User", "-c", "user.email=test@example.com", "commit", "-m", "Customer color")
-	oldRoot := testTree(t, map[string]string{"app.txt": "color: red\n", "goilerplate.lock": "old\n"})
-	newRoot := testTree(t, map[string]string{"app.txt": "color: green\n", "goilerplate.lock": "new\n"})
+	oldRoot := testTree(t, map[string]string{"app.txt": "color: red\n", "gostart.lock": "old\n"})
+	newRoot := testTree(t, map[string]string{"app.txt": "color: green\n", "gostart.lock": "new\n"})
 
 	repository, err := Open(context.Background(), repositoryRoot)
 	if err != nil {
@@ -96,7 +96,7 @@ func TestMergeWritesGitConflictMarkersOnNewBranch(t *testing.T) {
 	if !strings.Contains(content, "<<<<<<<") || !strings.Contains(content, "color: blue") || !strings.Contains(content, "color: green") {
 		t.Fatalf("conflict content = %q", content)
 	}
-	if content := runTestGit(t, repositoryRoot, "show", result.Branch+":goilerplate.lock"); content != "new\n" {
+	if content := runTestGit(t, repositoryRoot, "show", result.Branch+":gostart.lock"); content != "new\n" {
 		t.Fatalf("lock = %q", content)
 	}
 }
@@ -112,7 +112,7 @@ func TestOpenRejectsDirtyWorktree(t *testing.T) {
 func TestMergePreservesExistingInternalRef(t *testing.T) {
 	repositoryRoot := testRepository(t, map[string]string{"app.txt": "old\n"})
 	original := strings.TrimSpace(runTestGit(t, repositoryRoot, "rev-parse", "HEAD"))
-	runTestGit(t, repositoryRoot, "update-ref", "refs/goilerplate/update-import", original)
+	runTestGit(t, repositoryRoot, "update-ref", "refs/gostart/update-import", original)
 	repository, err := Open(context.Background(), repositoryRoot)
 	if err != nil {
 		t.Fatal(err)
@@ -128,7 +128,7 @@ func TestMergePreservesExistingInternalRef(t *testing.T) {
 	if result.Branch == "" {
 		t.Fatal("no update branch was created")
 	}
-	if current := strings.TrimSpace(runTestGit(t, repositoryRoot, "rev-parse", "refs/goilerplate/update-import")); current != original {
+	if current := strings.TrimSpace(runTestGit(t, repositoryRoot, "rev-parse", "refs/gostart/update-import")); current != original {
 		t.Fatalf("existing internal ref changed from %s to %s", original, current)
 	}
 }
