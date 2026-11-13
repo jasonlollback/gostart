@@ -15,7 +15,7 @@
 
   function buildCommand(state) {
     const args = [
-      "goilerplate",
+      "GoStart",
       "new",
       "--name",
       shellArgument(state.name),
@@ -43,7 +43,7 @@
 
   const contract = { buildCommand };
   if (typeof module !== "undefined" && module.exports) module.exports = contract;
-  if (typeof window !== "undefined") window.GoilerplateConfigurator = contract;
+  if (typeof window !== "undefined") window.GoStartConfigurator = contract;
   if (typeof document === "undefined") return;
 
   const root = document.getElementById("configurator");
