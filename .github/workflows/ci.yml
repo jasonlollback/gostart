@@ -45,7 +45,7 @@ jobs:
         run: go vet ./...
 
       - name: Build
-        run: go build ./cmd/goilerplate
+        run: go build ./cmd/gostart
 
       - name: Check generated templ files
         shell: bash
