@@ -48,7 +48,7 @@ func TestBuildVersionUsesInjectedReleaseVersion(t *testing.T) {
 	}
 }
 
-func TestModuleUsesV3Path(t *testing.T) {
+func TestModuleUsesGoStartPath(t *testing.T) {
 	content, err := os.ReadFile("../../go.mod")
 	if err != nil {
 		t.Fatal(err)
