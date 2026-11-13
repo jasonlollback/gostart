@@ -9,9 +9,9 @@ order: 2
 Add `--api` to an htmx or Datastar project. Pick `--framework svelte` for a SvelteKit app on the API. Or pick `--headless` for the Go backend without a native frontend.
 
 ```bash
-goilerplate new --module example.com/acme --framework htmx --api ./acme
-goilerplate new --module example.com/acme --framework svelte ./acme
-goilerplate new --module example.com/acme --headless ./acme
+gostart new --module example.com/acme --framework htmx --api ./acme
+gostart new --module example.com/acme --framework svelte ./acme
+gostart new --module example.com/acme --headless ./acme
 ```
 
 Every project with the API gets auth, account, sessions, billing, and admin endpoints. Workspaces and storage add theirs when you select them.
