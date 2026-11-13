@@ -36,7 +36,7 @@ const SvelteFirstVersion = "v3.1.0"
 // does not ship. It matches ErrUnsupportedForVersion with errors.Is.
 type UnsupportedForVersionError struct {
 	// Message is a sentence for the person who asked, such as "The MCP server
-	// needs goilerplate v3.1.0 or newer".
+	// needs GoStart v3.1.0 or newer".
 	Message string
 }
 
