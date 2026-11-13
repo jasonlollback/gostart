@@ -1,4 +1,4 @@
-// Package githubstars asks GitHub how many stars the goilerplate repo has.
+// Package githubstars asks GitHub how many stars the gostart repo has.
 // The site build calls it once, without a token, and bakes the number into
 // the pages.
 package githubstars
@@ -11,7 +11,7 @@ import (
 )
 
 // Repo is the repo whose stars the navbar shows.
-const Repo = "axadrn/goilerplate"
+const Repo = "axadrn/gostart"
 
 // APIURL is where the stars come from; tests point it at a fake.
 var APIURL = "https://api.github.com"
