@@ -45,7 +45,7 @@ In htmx and Datastar projects, `task dev` uses these defaults:
 - Go application: `8090`
 - templ proxy: `7331`
 
-If a default is busy, goilerplate selects the next available port. The printed local URL points to the templ proxy, which forwards requests to the Go application and provides live reload.
+If a default is busy, GoStart selects the next available port. The printed local URL points to the templ proxy, which forwards requests to the Go application and provides live reload.
 
 Set exact ports or open the browser automatically when needed:
 
