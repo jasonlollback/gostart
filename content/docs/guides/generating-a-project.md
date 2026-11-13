@@ -9,7 +9,7 @@ order: 1
 Run the wizard:
 
 ```bash
-goilerplate new
+gostart new
 ```
 
 Or use the [website builder](/new). Copy its command. Paste it into your terminal.
@@ -25,7 +25,7 @@ The template is built into the CLI. The CLI renders it with your choices on your
 ## Interactive mode
 
 ```bash
-goilerplate new
+gostart new
 ```
 
 Use the arrow keys to move. Press Space to toggle choices. Press Enter to continue. The last screen shows the complete selection before generation.
@@ -35,7 +35,7 @@ Use the arrow keys to move. Press Space to toggle choices. Press Enter to contin
 Flags are better for scripts and repeatable setup:
 
 ```bash
-goilerplate new \
+gostart new \
   --name Acme \
   --module github.com/acme/product \
   --framework datastar \
@@ -63,7 +63,7 @@ Interactive mode and flags use the same parser and generator path. The wizard is
 `--headless` implies `--api` and cannot be combined with an explicit `--framework` or with `--content`. `--framework svelte` implies `--api` and cannot be combined with `--content` either. Blog and docs need a server-rendered frontend. Everything else stays selectable.
 
 ```bash
-goilerplate new \
+gostart new \
   --name Acme \
   --module github.com/acme/product \
   --headless \
@@ -74,7 +74,7 @@ goilerplate new \
 ```
 
 ```bash
-goilerplate new \
+gostart new \
   --name Acme \
   --module github.com/acme/product \
   --framework svelte \
@@ -87,12 +87,12 @@ goilerplate new \
   ./acme
 ```
 
-A SvelteKit project needs Node.js 22.17 or newer and pnpm to build. `goilerplate doctor` checks both.
+A SvelteKit project needs Node.js 22.17 or newer and pnpm to build. `gostart doctor` checks both.
 
 The wizard asks for the frontend first and then, for htmx or Datastar, whether to include the JSON API. With the JSON API, with SvelteKit, or with Headless, it asks whether to include the MCP server. SvelteKit and Headless skip the JSON API question and the content step.
 
 ## The lock file
 
-Every project contains `goilerplate.lock`. It records the template version and normalized generator config. The automatic `Initial commit` already includes it.
+Every project contains `gostart.lock`. It records the template version and normalized generator config. The automatic `Initial commit` already includes it.
 
-Keep it committed. `goilerplate update` uses it to recreate the old and new generated trees.
+Keep it committed. `gostart update` uses it to recreate the old and new generated trees.
