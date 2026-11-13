@@ -53,7 +53,7 @@ func TestModuleUsesV3Path(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !strings.HasPrefix(string(content), "module github.com/axadrn/goilerplate/v4\n") {
+	if !strings.HasPrefix(string(content), "module github.com/jasonlollback/gostart/v4\n") {
 		t.Fatalf("go.mod = %q", content)
 	}
 }
