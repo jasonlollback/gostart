@@ -97,7 +97,7 @@ func TestGeneratedProjectLinksToDocumentation(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if !bytes.Contains(readme, []byte("goilerplate.com/docs")) {
+	if !bytes.Contains(readme, []byte("gostart.com/docs")) {
 		t.Error("generated README does not link to the public documentation")
 	}
 }
@@ -129,7 +129,7 @@ func TestGeneratedDocsAreLLMReadableWithoutExposingAgentInstructions(t *testing.
 		}
 	}
 	docs := string(tree["content/docs/getting-started.md"])
-	if !strings.Contains(docs, "```bash") || strings.Contains(docs, "goilerplate documentation") {
+	if !strings.Contains(docs, "```bash") || strings.Contains(docs, "gostart documentation") {
 		t.Fatal("generated docs are not a generic, code-backed product example")
 	}
 }
@@ -230,7 +230,7 @@ func TestGenerateIsByteDeterministic(t *testing.T) {
 		t.Fatalf("generated go.mod has wrong module path: %q", firstTree["go.mod"])
 	}
 	var lockFields map[string]json.RawMessage
-	if err := json.Unmarshal(firstTree["goilerplate.lock"], &lockFields); err != nil {
+	if err := json.Unmarshal(firstTree["gostart.lock"], &lockFields); err != nil {
 		t.Fatalf("decode lock fields: %v", err)
 	}
 	if _, ok := lockFields["config"]; !ok {
@@ -241,7 +241,7 @@ func TestGenerateIsByteDeterministic(t *testing.T) {
 	}
 
 	var lock LockFile
-	if err := json.Unmarshal(firstTree["goilerplate.lock"], &lock); err != nil {
+	if err := json.Unmarshal(firstTree["gostart.lock"], &lock); err != nil {
 		t.Fatalf("decode lock: %v", err)
 	}
 	if lock.SchemaVersion != LockSchemaVersion || lock.TemplateVersion != templateVersion {
@@ -382,7 +382,7 @@ func TestOlderTemplatesRejectTheMCPServer(t *testing.T) {
 	if !errors.Is(err, ErrUnsupportedForVersion) || !errors.As(err, &versionError) {
 		t.Fatalf("template without MCP sources error = %v, want ErrUnsupportedForVersion", err)
 	}
-	want := "The MCP server needs goilerplate " + MCPFirstVersion + " or newer"
+	want := "The MCP server needs gostart " + MCPFirstVersion + " or newer"
 	if versionError.Message != want {
 		t.Fatalf("message = %q, want %q", versionError.Message, want)
 	}
@@ -409,7 +409,7 @@ func TestOlderTemplatesRejectSvelteKit(t *testing.T) {
 		Mail:        MailSMTP,
 		API:         true,
 	}
-	want := "SvelteKit needs goilerplate " + SvelteFirstVersion + " or newer"
+	want := "SvelteKit needs gostart " + SvelteFirstVersion + " or newer"
 	for name, older := range map[string]fstest.MapFS{
 		"before the API": {
 			"_template/README.md":                   {Data: []byte("older\n")},
@@ -532,7 +532,7 @@ func TestGeneratedFrontendContainsExactlyOneFramework(t *testing.T) {
 			if !strings.Contains(frontendSource.String(), `form[aria-busy] button[type="submit"]`) {
 				t.Error("Datastar output does not show loading state for boolean aria-busy attributes")
 			}
-			for _, forbidden := range []string{"hx-post=", "hx-patch=", "hx-delete=", "HX-Request", `data-on:submit="(`, "goilerplateRedirect", "datastar-signal-patch", "renderOOB", "beforeend:#"} {
+			for _, forbidden := range []string{"hx-post=", "hx-patch=", "hx-delete=", "HX-Request", `data-on:submit="(`, "gostartRedirect", "datastar-signal-patch", "renderOOB", "beforeend:#"} {
 				if strings.Contains(frontendSource.String(), forbidden) {
 					t.Errorf("Datastar output contains %q", forbidden)
 				}
@@ -558,7 +558,7 @@ func TestGeneratedFrontendContainsExactlyOneFramework(t *testing.T) {
 				t.Errorf("htmx output contains %q", forbidden)
 			}
 		}
-		for _, forbidden := range []string{"data-on:", "data-indicator", "datastar.NewSSE", "goilerplate-loading"} {
+		for _, forbidden := range []string{"data-on:", "data-indicator", "datastar.NewSSE", "gostart-loading"} {
 			if strings.Contains(frontendSource.String(), forbidden) {
 				t.Errorf("htmx output contains %q", forbidden)
 			}
@@ -921,7 +921,7 @@ func TestGeneratedDocsAreTheSameAcrossStacks(t *testing.T) {
 				t.Errorf("generated docs do not contain %q", expected)
 			}
 		}
-		for _, forbidden := range []string{"Stripe", "Polar", "Datastar", "htmx", "PostgreSQL", "SQLite", "goilerplate"} {
+		for _, forbidden := range []string{"Stripe", "Polar", "Datastar", "htmx", "PostgreSQL", "SQLite", "gostart"} {
 			if strings.Contains(allDocs, forbidden) {
 				t.Errorf("generated docs contain stack-specific product term %q", forbidden)
 			}
@@ -1169,7 +1169,7 @@ func assertGeneratedFrameworkMarkup(t *testing.T, tree map[string][]byte, framew
 			if booleanAriaInvalidPattern.Match(line) {
 				t.Errorf("%s:%d renders aria-invalid from a Go bool, which templ writes as a bare attribute that styles read as false: %s", path, index+1, line)
 			}
-			if bytes.Contains(line, []byte("data-class:goilerplate-loading")) {
+			if bytes.Contains(line, []byte("data-class:gostart-loading")) {
 				t.Errorf("%s:%d uses a redundant Datastar loading class: %s", path, index+1, line)
 			}
 			if bytes.Contains(line, []byte("hx-indicator")) && !bytes.Contains(line, []byte(`hx-indicator="#delete-project-button"`)) {
