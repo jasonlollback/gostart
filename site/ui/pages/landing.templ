@@ -1,19 +1,19 @@
 package pages
 
 import (
-	"github.com/axadrn/goilerplate/v4/site/brand"
-	"github.com/axadrn/goilerplate/v4/site/githubstars"
-	"github.com/axadrn/goilerplate/v4/site/sitectx"
-	"github.com/axadrn/goilerplate/v4/site/ui/blocks"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/accordion"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/badge"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/button"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/card"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/icon"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/separator"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/tabs"
-	"github.com/axadrn/goilerplate/v4/site/ui/layouts"
-	"github.com/axadrn/goilerplate/v4/site/ui/utils"
+	"github.com/jasonlollback/gostart/v4/site/brand"
+	"github.com/jasonlollback/gostart/v4/site/githubstars"
+	"github.com/jasonlollback/gostart/v4/site/sitectx"
+	"github.com/jasonlollback/gostart/v4/site/ui/blocks"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/accordion"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/badge"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/button"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/card"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/icon"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/separator"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/tabs"
+	"github.com/jasonlollback/gostart/v4/site/ui/layouts"
+	"github.com/jasonlollback/gostart/v4/site/ui/utils"
 )
 
 const (
@@ -71,7 +71,7 @@ templ homePrimary(class string) {
 }
 
 // ---------------------------------------------------------------- hero
-// homeHero says what goilerplate is, in one headline, one line, one
+// homeHero says what GoStart is, in one headline, one line, one
 // command and one button.
 templ homeHero() {
 	<section class="pt-20 sm:pt-32">
@@ -225,7 +225,7 @@ templ homeRepo() {
 		<div class={ homeWrap, "grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16" }>
 			<div>
 				<h2 class={ typeH2, "max-w-[14ch]" }>It's just a Go repo.</h2>
-				<p class={ typeLead, "mt-6 max-w-lg" }>Handlers, services, repositories and raw SQL. No framework to learn, and nothing at runtime depends on goilerplate.</p>
+				<p class={ typeLead, "mt-6 max-w-lg" }>Handlers, services, repositories and raw SQL. No framework to learn, and nothing at runtime depends on GoStart.</p>
 				<ul class="mt-10 grid gap-6">
 					@homeFact("Only what you picked", "A Stripe project has no Polar code. A SQLite project has no PostgreSQL driver.")
 					@homeFact("Yours to change", "Every file is plain source in your repository, with Git and a first commit ready.")
@@ -299,7 +299,7 @@ var homeTree = []codeLine{
 	{"├── AGENTS.md              rules for your coding agent", ""},
 	{"├── Dockerfile", ""},
 	{"├── Taskfile.yml           task dev", ""},
-	{"├── goilerplate.lock       your stack, for updates", ""},
+	{"├── gostart.lock       your stack, for updates", ""},
 	{"├── .github/workflows/ci.yml", ""},
 	{"├── cmd/server/main.go", ""},
 	{"└── internal/", ""},
@@ -401,16 +401,16 @@ templ homeProof() {
 				<div>
 					<h3 class={ typeH3 }>Fixes keep coming after day one.</h3>
 					<p class={ typeText, "mt-3 max-w-md" }>
-						<code class="font-mono text-foreground">goilerplate update</code> puts the next release on its own Git branch. You review it and merge it like any other branch. Your own code stays yours.
+						<code class="font-mono text-foreground">gostart update</code> puts the next release on its own Git branch. You review it and merge it like any other branch. Your own code stays yours.
 					</p>
 					<p class={ typeText, "mt-4" }>
 						<a href="/changelog" class={ homeLink }>Read the changelog</a>
 					</p>
 				</div>
-				<div class={ homeCode, "self-center overflow-x-auto px-6 py-5 whitespace-pre" } aria-label="goilerplate update in a terminal">
-					<p><span class="text-terminal-foreground/45">$ </span>goilerplate update</p>
-					<p class="text-live">✓ Created goilerplate-update-v4.1.0</p>
-					<p class="mt-3"><span class="text-terminal-foreground/45">$ </span>git switch goilerplate-update-v4.1.0</p>
+				<div class={ homeCode, "self-center overflow-x-auto px-6 py-5 whitespace-pre" } aria-label="gostart update in a terminal">
+					<p><span class="text-terminal-foreground/45">$ </span>gostart update</p>
+					<p class="text-live">✓ Created gostart-update-v4.1.0</p>
+					<p class="mt-3"><span class="text-terminal-foreground/45">$ </span>git switch gostart-update-v4.1.0</p>
 					<p><span class="text-terminal-foreground/45">$ </span>git show --stat</p>
 				</div>
 			}
@@ -449,7 +449,7 @@ templ homeFAQ() {
 					Yes. The CLI is MIT. The template and your projects are 0BSD and ship without a LICENSE file. Use, change and sell them, with no notice to keep.
 				}
 				@homeQuestion("Why a kit if AI writes my code?") {
-					An agent in an empty folder invents auth and billing anew every session. On goilerplate it extends tested code, follows <code class="font-mono">AGENTS.md</code> and hits a failing test when it breaks something.
+					An agent in an empty folder invents auth and billing anew every session. On GoStart it extends tested code, follows <code class="font-mono">AGENTS.md</code> and hits a failing test when it breaks something.
 				}
 				@homeQuestion("Is this a framework?") {
 					No. You get an ordinary Go repository. Nothing depends on the generator at runtime.
