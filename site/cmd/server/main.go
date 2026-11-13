@@ -1,4 +1,4 @@
-// Command server is the goilerplate website: it renders the templ pages on
+// Command server is the gostart website: it renders the templ pages on
 // every request, serves the assets, the docs also as Markdown, the sitemap,
 // robots.txt and llms.txt, redirects old URLs, and gives CLIs from before v4,
 // which still call the retired API, a plain answer. Run it from the
@@ -28,11 +28,11 @@ import (
 	"github.com/yuin/goldmark/extension"
 	"github.com/yuin/goldmark/renderer/html"
 
-	"github.com/axadrn/goilerplate/v4/site/brand"
-	"github.com/axadrn/goilerplate/v4/site/docs"
-	"github.com/axadrn/goilerplate/v4/site/githubstars"
-	"github.com/axadrn/goilerplate/v4/site/sitectx"
-	"github.com/axadrn/goilerplate/v4/site/ui/pages"
+	"github.com/jasonlollback/gostart/v4/site/brand"
+	"github.com/jasonlollback/gostart/v4/site/docs"
+	"github.com/jasonlollback/gostart/v4/site/githubstars"
+	"github.com/jasonlollback/gostart/v4/site/sitectx"
+	"github.com/jasonlollback/gostart/v4/site/ui/pages"
 )
 
 func main() {
@@ -183,11 +183,11 @@ func (s *site) read() (*markdown, error) {
 		paths = append(paths, urlPath)
 		description := strings.TrimSpace(page.Description)
 		if description == "" {
-			description = "goilerplate documentation"
+			description = "gostart documentation"
 		}
 		fmt.Fprintf(&llms, "- [%s](%s%s.md): %s\n", page.Title, brand.URL, urlPath, description)
 	}
-	fmt.Fprintf(&llms, "\n## Product\n\n- [Stack builder](%s/new): Choose the stack and copy the matching goilerplate new command.\n- [Changelog](%s/changelog): What shipped, newest first.\n- [Source](https://github.com/%s): The CLI, the generator and this website.\n", brand.URL, brand.URL, githubstars.Repo)
+	fmt.Fprintf(&llms, "\n## Product\n\n- [Stack builder](%s/new): Choose the stack and copy the matching gostart new command.\n- [Changelog](%s/changelog): What shipped, newest first.\n- [Source](https://github.com/%s): The CLI, the generator and this website.\n", brand.URL, brand.URL, githubstars.Repo)
 	result.llms = llms.String()
 
 	result.sitemap, err = sitemap(paths)
@@ -371,7 +371,7 @@ func retiredAPI(w http.ResponseWriter) {
 	w.Header().Set("Cache-Control", "no-store")
 	w.WriteHeader(http.StatusGone)
 	_ = json.NewEncoder(w).Encode(map[string]string{
-		"code":    "goilerplate_is_free",
-		"message": "goilerplate is free and open source now, no login needed. Install the new CLI: " + brand.Install,
+		"code":    "gostart_is_free",
+		"message": "gostart is free and open source now, no login needed. Install the new CLI: " + brand.Install,
 	})
 }
