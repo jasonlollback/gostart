@@ -39,7 +39,7 @@ func extract(source io.Reader, destination string, prepare func(string) error) e
 	if err := os.MkdirAll(parent, 0o755); err != nil {
 		return fmt.Errorf("create destination parent: %w", err)
 	}
-	staging, err := os.MkdirTemp(parent, ".goilerplate-*")
+	staging, err := os.MkdirTemp(parent, ".gostart-*")
 	if err != nil {
 		return fmt.Errorf("create extraction directory: %w", err)
 	}
