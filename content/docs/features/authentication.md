@@ -51,7 +51,7 @@ Register `{API_URL}/auth/{provider}/callback` with each provider. `API_URL` defa
 
 ## Rate limits and visitor IPs
 
-goilerplate ships IP-based limits for sign-in, OAuth, magic-link, and password-recovery requests. Email delivery also has a separate limit for each normalized recipient. Account changes and workspace invitations use signed-in user or workspace keys instead of visitor IPs.
+GoStart ships IP-based limits for sign-in, OAuth, magic-link, and password-recovery requests. Email delivery also has a separate limit for each normalized recipient. Account changes and workspace invitations use signed-in user or workspace keys instead of visitor IPs.
 
 If the app runs behind a private-network reverse proxy, set `TRUSTED_PROXY_CIDRS` to that proxy network. This lets the limiter use the real visitor IP without trusting forged forwarded headers. Direct deployments and loopback proxies need no value.
 
