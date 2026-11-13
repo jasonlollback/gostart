@@ -53,4 +53,4 @@ Add a CMS when non-developers need drafts, approvals, scheduled publishing, medi
 
 ## Remove it
 
-Leave Blog or Docs unselected during generation and that entire surface is omitted. After generation, `goilerplate update` keeps the choices in `goilerplate.lock`. Remove generated modules manually if the product no longer needs them.
+Leave Blog or Docs unselected during generation and that entire surface is omitted. After generation, `gostart update` keeps the choices in `gostart.lock`. Remove generated modules manually if the product no longer needs them.
