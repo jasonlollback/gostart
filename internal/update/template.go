@@ -15,8 +15,8 @@ import (
 	"golang.org/x/mod/semver"
 )
 
-// DefaultProxy is the public Go module proxy. Every release of goilerplate
-// carries its template there, so update needs no goilerplate server.
+// DefaultProxy is the public Go module proxy. Every release of gostart
+// carries its template there, so update needs no gostart server.
 const DefaultProxy = "https://proxy.golang.org"
 
 // FirstUpdatableMajor is the first major version whose releases carry the
@@ -24,7 +24,7 @@ const DefaultProxy = "https://proxy.golang.org"
 const FirstUpdatableMajor = "v4"
 
 const (
-	repositoryModule = "github.com/axadrn/goilerplate"
+	repositoryModule = "github.com/jasonlollback/gostart"
 	templateDir      = "generator/_template/"
 	maxModuleZipSize = 128 << 20
 	maxTemplateSize  = 256 << 20
@@ -33,8 +33,8 @@ const (
 // ErrVersionNotFound reports a template version the proxy does not have.
 var ErrVersionNotFound = errors.New("template version not found")
 
-// ModulePath returns the module path of a goilerplate release, such as
-// github.com/axadrn/goilerplate/v4 for v4.1.0.
+// ModulePath returns the module path of a gostart release, such as
+// github.com/jasonlollback/gostart/v4 for v4.1.0.
 func ModulePath(version string) string {
 	major := semver.Major(version)
 	if major == "v0" || major == "v1" {
@@ -57,21 +57,21 @@ func FetchTemplate(ctx context.Context, client *http.Client, proxy, version stri
 	}
 	response, err := client.Do(request)
 	if err != nil {
-		return nil, fmt.Errorf("download goilerplate %s: %w", version, err)
+		return nil, fmt.Errorf("download gostart %s: %w", version, err)
 	}
 	defer response.Body.Close()
 	switch {
 	case response.StatusCode == http.StatusNotFound || response.StatusCode == http.StatusGone:
 		return nil, fmt.Errorf("%w: %s", ErrVersionNotFound, version)
 	case response.StatusCode != http.StatusOK:
-		return nil, fmt.Errorf("download goilerplate %s: the module proxy returned %s", version, response.Status)
+		return nil, fmt.Errorf("download gostart %s: the module proxy returned %s", version, response.Status)
 	}
 	content, err := io.ReadAll(io.LimitReader(response.Body, maxModuleZipSize+1))
 	if err != nil {
-		return nil, fmt.Errorf("download goilerplate %s: %w", version, err)
+		return nil, fmt.Errorf("download gostart %s: %w", version, err)
 	}
 	if len(content) > maxModuleZipSize {
-		return nil, fmt.Errorf("download goilerplate %s: the module is too large", version)
+		return nil, fmt.Errorf("download gostart %s: the module is too large", version)
 	}
 	return readTemplate(content, module+"@"+version+"/")
 }
@@ -107,7 +107,7 @@ func readTemplate(content []byte, prefix string) (fs.FS, error) {
 		files["_template/"+name] = &fstest.MapFile{Data: data, Mode: 0o644}
 	}
 	if len(files) == 0 {
-		return nil, errors.New("the module contains no goilerplate template")
+		return nil, errors.New("the module contains no gostart template")
 	}
 	return files, nil
 }
