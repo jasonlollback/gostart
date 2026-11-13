@@ -10,8 +10,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/axadrn/goilerplate/v4/generator"
-	"github.com/axadrn/goilerplate/v4/internal/project"
+	"github.com/jasonlollback/gostart/v4/generator"
+	"github.com/jasonlollback/gostart/v4/internal/project"
 )
 
 func (a *App) newProject(ctx context.Context, arguments []string) error {
@@ -62,7 +62,7 @@ func (a *App) newProject(ctx context.Context, arguments []string) error {
 		*jsonAPI = true
 	}
 	if flags.NArg() != 1 {
-		return errors.New("usage: goilerplate new [options] <directory>")
+		return errors.New("usage: gostart new [options] <directory>")
 	}
 	destination := flags.Arg(0)
 	if strings.TrimSpace(*modulePath) == "" {
@@ -111,7 +111,7 @@ func (a *App) newProject(ctx context.Context, arguments []string) error {
 // version, such as go run or go build from a checkout.
 const devTemplateVersion = "v4.0.0-dev"
 
-// templateVersion is the version written to goilerplate.lock. The template is
+// templateVersion is the version written to gostart.lock. The template is
 // embedded in the CLI, so it is the version of the CLI itself.
 func (a *App) templateVersion() string {
 	if generator.ValidateVersion(a.Version) == nil {
