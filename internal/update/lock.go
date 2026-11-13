@@ -9,26 +9,26 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/axadrn/goilerplate/v4/generator"
+	"github.com/jasonlollback/gostart/v4/generator"
 )
 
 const maxLockSize = 64 << 10
 
 func ReadLock(root string) (generator.LockFile, error) {
-	file, err := os.Open(filepath.Join(root, "goilerplate.lock"))
+	file, err := os.Open(filepath.Join(root, "gostart.lock"))
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
-			return generator.LockFile{}, errors.New("goilerplate.lock was not found")
+			return generator.LockFile{}, errors.New("gostart.lock was not found")
 		}
-		return generator.LockFile{}, fmt.Errorf("open goilerplate.lock: %w", err)
+		return generator.LockFile{}, fmt.Errorf("open gostart.lock: %w", err)
 	}
 	defer file.Close()
 	info, err := file.Stat()
 	if err != nil {
-		return generator.LockFile{}, fmt.Errorf("read goilerplate.lock size: %w", err)
+		return generator.LockFile{}, fmt.Errorf("read gostart.lock size: %w", err)
 	}
 	if info.Size() > maxLockSize {
-		return generator.LockFile{}, errors.New("goilerplate.lock is too large")
+		return generator.LockFile{}, errors.New("gostart.lock is too large")
 	}
 
 	decoder := json.NewDecoder(io.LimitReader(file, maxLockSize))
@@ -44,16 +44,16 @@ func ReadLock(root string) (generator.LockFile, error) {
 		} `json:"config"`
 	}
 	if err := decoder.Decode(&lock); err != nil {
-		return generator.LockFile{}, fmt.Errorf("read goilerplate.lock: %w", err)
+		return generator.LockFile{}, fmt.Errorf("read gostart.lock: %w", err)
 	}
 	if err := decoder.Decode(&struct{}{}); !errors.Is(err, io.EOF) {
-		return generator.LockFile{}, errors.New("goilerplate.lock must contain one JSON object")
+		return generator.LockFile{}, errors.New("gostart.lock must contain one JSON object")
 	}
 	if lock.SchemaVersion != generator.LockSchemaVersion {
-		return generator.LockFile{}, fmt.Errorf("goilerplate.lock uses unsupported schema version %d", lock.SchemaVersion)
+		return generator.LockFile{}, fmt.Errorf("gostart.lock uses unsupported schema version %d", lock.SchemaVersion)
 	}
 	if strings.TrimSpace(lock.TemplateVersion) == "" {
-		return generator.LockFile{}, errors.New("goilerplate.lock contains no template version")
+		return generator.LockFile{}, errors.New("gostart.lock contains no template version")
 	}
 	return generator.LockFile{
 		SchemaVersion:   lock.SchemaVersion,
