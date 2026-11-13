@@ -12,13 +12,13 @@ import (
 )
 
 func TestFetchTemplateReadsTheTemplateFromTheModuleZip(t *testing.T) {
-	prefix := "github.com/axadrn/goilerplate/v4@v4.1.0/"
+	prefix := "github.com/jasonlollback/gostart/v4@v4.1.0/"
 	module := moduleZip(t, map[string]string{
-		prefix + "go.mod":                              "module github.com/axadrn/goilerplate/v4\n",
+		prefix + "go.mod":                              "module github.com/jasonlollback/gostart/v4\n",
 		prefix + "generator/generate.go":               "package generator\n",
 		prefix + "generator/_template/go.mod.tmpl":     "module {{.ModulePath}}\n",
 		prefix + "generator/_template/internal/a.go":   "package internal\n",
-		"github.com/axadrn/goilerplate/v4@v4.0.0/x.go": "package other\n",
+		"github.com/jasonlollback/gostart/v4@v4.0.0/x.go": "package other\n",
 	})
 	var requested string
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -31,7 +31,7 @@ func TestFetchTemplateReadsTheTemplateFromTheModuleZip(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if requested != "/github.com/axadrn/goilerplate/v4/@v/v4.1.0.zip" {
+	if requested != "/github.com/jasonlollback/gostart/v4/@v/v4.1.0.zip" {
 		t.Fatalf("requested %s", requested)
 	}
 	var names []string
@@ -65,7 +65,7 @@ func TestFetchTemplateReportsAMissingVersion(t *testing.T) {
 }
 
 func TestFetchTemplateRejectsAModuleWithoutTemplate(t *testing.T) {
-	module := moduleZip(t, map[string]string{"github.com/axadrn/goilerplate/v4@v4.1.0/go.mod": "module x\n"})
+	module := moduleZip(t, map[string]string{"github.com/jasonlollback/gostart/v4@v4.1.0/go.mod": "module x\n"})
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		_, _ = w.Write(module)
 	}))
@@ -78,9 +78,9 @@ func TestFetchTemplateRejectsAModuleWithoutTemplate(t *testing.T) {
 
 func TestModulePathFollowsTheMajorVersion(t *testing.T) {
 	for version, want := range map[string]string{
-		"v4.1.0":        "github.com/axadrn/goilerplate/v4",
-		"v5.0.0-beta.1": "github.com/axadrn/goilerplate/v5",
-		"v1.9.0":        "github.com/axadrn/goilerplate",
+		"v4.1.0":        "github.com/jasonlollback/gostart/v4",
+		"v5.0.0-beta.1": "github.com/jasonlollback/gostart/v5",
+		"v1.9.0":        "github.com/jasonlollback/gostart",
 	} {
 		if got := ModulePath(version); got != want {
 			t.Fatalf("ModulePath(%s) = %s, want %s", version, got, want)
