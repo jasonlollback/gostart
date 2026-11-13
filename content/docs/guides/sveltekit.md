@@ -7,7 +7,7 @@ order: 3
 ## TLDR
 
 ```bash
-goilerplate new --module example.com/acme --framework svelte ./acme
+gostart new --module example.com/acme --framework svelte ./acme
 cd acme
 cp .env.example .env
 task dev
@@ -31,7 +31,7 @@ The app covers what the htmx and Datastar apps cover for your selection: sign-in
 - Node.js 22.17 or newer. 24 LTS is what the Dockerfile and CI use.
 - pnpm 12.9.1. `npm install --global pnpm@12.9.1` works.
 
-`goilerplate doctor` checks Node.js and pnpm in a SvelteKit project.
+`gostart doctor` checks Node.js and pnpm in a SvelteKit project.
 
 ## Stack
 
