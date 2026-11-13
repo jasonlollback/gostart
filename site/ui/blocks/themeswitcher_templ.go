@@ -10,8 +10,8 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/axadrn/goilerplate/v4/site/ui/components/button"
-	"github.com/axadrn/goilerplate/v4/site/ui/utils"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/button"
+	"github.com/jasonlollback/gostart/v4/site/ui/utils"
 )
 
 type ThemeSwitcherProps struct {
