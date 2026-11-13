@@ -1,66 +1,40 @@
-# goilerplate
+# gostart
 
-**The Go SaaS starter kit, free and open source.** One command generates a production Go app with login, billing, teams, admin, an API and tests, right on your machine. Every line is yours.
+**A Go project generator for small, composable, production-minded applications.**
 
-[Website](https://goilerplate.com) · [Docs](https://goilerplate.com/docs) · [Changelog](https://goilerplate.com/changelog)
+gostart generates self-contained Go applications from composable templates and optional capabilities. Generated projects are ordinary Go source with their own `go.mod`, build, tests and deployment configuration. They do not depend on gostart at runtime.
 
-## What you get
+**Status:** early development. The repository is being reshaped around a focused generator and a reference Go application. See [product requirements](docs/PRODUCT.md), [architecture](docs/ARCHITECTURE.md) and [implementation backlog](docs/BACKLOG.md).
 
-- **Auth:** passwords, magic links, Google and GitHub OAuth, revocable sessions
-- **Billing:** Stripe or Polar, subscriptions, customer portal, signed webhooks
-- **Teams:** workspaces, roles, invitations, seat limits
-- **Admin:** user search, metrics, session revocation, support impersonation
-- **API:** JSON API, personal API tokens, MCP server for your customers' agents
-- **Production:** tests, CI, Dockerfile, migrations, Sentry, a stack-aware `AGENTS.md`
+## Product principles
 
-Stack: Go, templ, Tailwind CSS, shadcn-templ, with htmx, Datastar, SvelteKit or headless. SQLite or PostgreSQL.
+- Go-first and idiomatic. Prefer the standard library when it is sufficient.
+- Generate small, comprehensible applications with explicit feature composition.
+- Generated projects are self-contained and independently maintainable.
+- No automatic template updates.
+- Secure defaults and reproducible generation.
+- Test generated projects, not just the generator.
 
-## Quick start
+## Initial application profile
 
-You need Go 1.26+ and Git.
+The initial reference output is a web application using Go, `net/http`, `http.ServeMux`, SQLite, `database/sql`, sqlc, Templ, Tailwind CSS 4, shadcn-templ, HTMX, slog and tint. Development uses Taskfile and a separate tools module. Deployment examples use Docker, Compose, GitHub Actions and GHCR.
 
-```bash
-go install github.com/axadrn/goilerplate/v4/cmd/goilerplate@latest
-goilerplate new
-```
+The first release is deliberately focused. SQLite is the only planned database for v1; authentication is email one-time-code based when selected. See the product requirements for scope and non-goals.
 
-`goilerplate new` without options opens an interactive setup. It renders the project on your machine: no account, no network.
+## Development
 
-## Commands
+The generator is a Go CLI. Consult [AGENTS.md](AGENTS.md) and [the specification-driven development workflow](docs/SDD_WORKFLOW.md) before making changes.
 
-| Command | What it does |
-|---|---|
-| `new` | Generate a new project |
-| `update` | Update a generated project on a new Git branch, from v4 on |
-| `doctor` | Check a project's tools and `.env` |
-| `changelog` | Show release notes |
-| `version` | Show the CLI version |
+## Documentation
 
-## Options for `new`
+- [Product requirements](docs/PRODUCT.md)
+- [Architecture](docs/ARCHITECTURE.md)
+- [Architecture decisions](docs/DECISIONS.md)
+- [Implementation backlog](docs/BACKLOG.md)
+- [Specification-driven development workflow](docs/SDD_WORKFLOW.md)
+- [Specification template](docs/SPEC_TEMPLATE.md)
+- [Implementation specifications](specs/)
 
-```bash
-goilerplate new --module example.com/acme --framework htmx --database sqlite --payment stripe --workspaces ./acme
-```
+## Upstream
 
-| Option | Values | Default |
-|---|---|---|
-| `--framework` | `htmx`, `datastar`, `svelte`, `headless` | `htmx` |
-| `--database` | `sqlite`, `postgres` | `sqlite` |
-| `--payment` | `stripe`, `polar` | `stripe` |
-| `--mail` | `smtp`, `resend` | `smtp` |
-| `--oauth` | `google`, `github` (comma separated) | none |
-| `--content` | `blog`, `docs` (comma separated) | none |
-| `--workspaces` | include teams | off |
-| `--storage` | include S3 file storage | off |
-| `--api` | add the JSON API | off |
-| `--mcp` | add the MCP server, needs `--api` | off |
-| `--headless` | Go backend with the JSON API, no frontend | off |
-
-SvelteKit projects also need Node.js 22.17+ and pnpm.
-
-## License
-
-- The CLI and this repository are [MIT](LICENSE).
-- The template in `generator/_template/` and every project goilerplate generates are [0BSD](LICENSE-0BSD). Use, change and sell what you generate. No notice or attribution is required, and generated projects ship without a LICENSE file, so you pick your own.
-- Contributions come in under the license of the files they change. No CLA.
-- The licenses cover the code, not the name goilerplate or its logo.
+This repository is a fork of [axadrn/goilerplate](https://github.com/axadrn/goilerplate). The upstream relationship is retained so useful fixes can be reviewed and selectively incorporated. gostart is an independent project; changes do not need to be submitted upstream.
