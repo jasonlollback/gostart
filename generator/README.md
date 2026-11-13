@@ -1,4 +1,4 @@
-# goilerplate generator
+# gostart generator
 
 The generator and its master project tree live here. `_template/` mirrors the generated project layout.
 
