@@ -2,8 +2,8 @@
 package brand
 
 const (
-	Name    = "goilerplate"
+	Name    = "gostart"
 	Tagline = "The Go SaaS starter kit, free and open source"
-	URL     = "https://goilerplate.com"
-	Install = "go install github.com/axadrn/goilerplate/v4/cmd/goilerplate@latest"
+	URL     = "https://gostart.com"
+	Install = "go install github.com/axadrn/gostart/v4/cmd/gostart@latest"
 )
