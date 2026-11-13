@@ -9,8 +9,8 @@ order: 2
 Add `--mcp` next to `--api`, `--framework svelte`, or `--headless`:
 
 ```bash
-goilerplate new --module example.com/acme --framework htmx --api --mcp ./acme
-goilerplate new --module example.com/acme --headless --mcp ./acme
+gostart new --module example.com/acme --framework htmx --api --mcp ./acme
+gostart new --module example.com/acme --headless --mcp ./acme
 ```
 
 Your project then serves an [MCP](https://modelcontextprotocol.io) server at `/mcp`. Your users create a [personal API token](/docs/features/api-tokens), paste one command or config block into their agent, and ask it about their account, workspace, members, activity, or billing.
