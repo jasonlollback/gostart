@@ -10,22 +10,22 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	"github.com/axadrn/goilerplate/v4/generator"
-	"github.com/axadrn/goilerplate/v4/site/brand"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/badge"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/button"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/card"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/checkbox"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/field"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/icon"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/input"
-	selectcomp "github.com/axadrn/goilerplate/v4/site/ui/components/select"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/separator"
-	"github.com/axadrn/goilerplate/v4/site/ui/layouts"
-	"github.com/axadrn/goilerplate/v4/site/ui/utils"
+	"github.com/jasonlollback/gostart/v4/generator"
+	"github.com/jasonlollback/gostart/v4/site/brand"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/badge"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/button"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/card"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/checkbox"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/field"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/icon"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/input"
+	selectcomp "github.com/jasonlollback/gostart/v4/site/ui/components/select"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/separator"
+	"github.com/jasonlollback/gostart/v4/site/ui/layouts"
+	"github.com/jasonlollback/gostart/v4/site/ui/utils"
 )
 
-// Configurator is the stack builder: the form writes the goilerplate new
+// Configurator is the stack builder: the form writes the gostart new
 // command for the chosen stack. assets/js/configurator.js keeps it current.
 func Configurator() templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
@@ -686,7 +686,7 @@ func Configurator() templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</div><div class=\"px-5 py-5\"><code id=\"configurator-command\" class=\"block min-w-0 font-mono text-[13px] leading-6 break-words whitespace-pre-wrap sm:text-[14px]\">goilerplate new --name 'My App' --module example.com/my-app --framework htmx --database sqlite --payment stripe --mail smtp --oauth google,github ./my-app</code><p id=\"configurator-copy-status\" class=\"sr-only\" aria-live=\"polite\">Copy command</p></div></div>")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 35, "</div><div class=\"px-5 py-5\"><code id=\"configurator-command\" class=\"block min-w-0 font-mono text-[13px] leading-6 break-words whitespace-pre-wrap sm:text-[14px]\">gostart new --name 'My App' --module example.com/my-app --framework htmx --database sqlite --payment stripe --mail smtp --oauth google,github ./my-app</code><p id=\"configurator-copy-status\" class=\"sr-only\" aria-live=\"polite\">Copy command</p></div></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -778,7 +778,7 @@ func Configurator() templ.Component {
 		})
 		templ_7745c5c3_Err = layouts.Home(layouts.SEOProps{
 			Title:       "Stack builder",
-			Description: "Choose your goilerplate stack and copy one goilerplate new command.",
+			Description: "Choose your GoStart stack and copy one gostart new command.",
 			Path:        "/new",
 		}).Render(templ.WithChildren(ctx, templ_7745c5c3_Var2), templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
