@@ -9,7 +9,7 @@ package separator
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/axadrn/goilerplate/v4/site/ui/utils"
+import "github.com/jasonlollback/gostart/v4/site/ui/utils"
 
 type Orientation string
 
