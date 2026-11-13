@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/axadrn/goilerplate/v4/internal/doctor"
+	"github.com/jasonlollback/gostart/v4/internal/doctor"
 )
 
 func (a *App) doctor(ctx context.Context, arguments []string) error {
 	if len(arguments) != 0 {
-		return errors.New("usage: goilerplate doctor")
+		return errors.New("usage: gostart doctor")
 	}
 	directory := a.WorkingDirectory
 	if directory == "" {
