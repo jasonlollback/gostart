@@ -40,7 +40,7 @@ func Open(ctx context.Context, directory string) (Repository, error) {
 	}
 	output, err := runGit(ctx, directory, nil, "rev-parse", "--show-toplevel", "HEAD", "HEAD^{tree}")
 	if err != nil {
-		return Repository{}, errors.New("goilerplate update requires a Git repository with at least one commit")
+		return Repository{}, errors.New("gostart update requires a Git repository with at least one commit")
 	}
 	lines := strings.Split(strings.TrimSpace(output), "\n")
 	if len(lines) != 3 {
@@ -52,7 +52,7 @@ func Open(ctx context.Context, directory string) (Repository, error) {
 		return Repository{}, fmt.Errorf("check Git worktree: %w", err)
 	}
 	if strings.TrimSpace(status) != "" {
-		return Repository{}, errors.New("goilerplate update requires a clean Git worktree")
+		return Repository{}, errors.New("gostart update requires a clean Git worktree")
 	}
 	return Repository{Root: root, Head: strings.TrimSpace(lines[1]), HeadTree: strings.TrimSpace(lines[2])}, nil
 }
@@ -60,14 +60,14 @@ func Open(ctx context.Context, directory string) (Repository, error) {
 func checkGitVersion(ctx context.Context, directory string) error {
 	output, err := runGit(ctx, directory, nil, "version")
 	if err != nil {
-		return errors.New("goilerplate update requires Git, but running git failed: " + err.Error())
+		return errors.New("gostart update requires Git, but running git failed: " + err.Error())
 	}
 	version, ok := gitVersion(output)
 	if !ok {
 		return nil
 	}
 	if version[0] < 2 || version[0] == 2 && version[1] < minimumGitMinor {
-		return fmt.Errorf("goilerplate update requires Git 2.%d or newer, this machine has Git %d.%d. Update Git and run goilerplate update again", minimumGitMinor, version[0], version[1])
+		return fmt.Errorf("gostart update requires Git 2.%d or newer, this machine has Git %d.%d. Update Git and run gostart update again", minimumGitMinor, version[0], version[1])
 	}
 	return nil
 }
@@ -97,12 +97,12 @@ func Merge(ctx context.Context, repository Repository, oldRoot, newRoot, targetV
 	if !safeVersion(targetVersion) {
 		return Result{}, fmt.Errorf("invalid template version %q", targetVersion)
 	}
-	branch := "goilerplate-update-" + targetVersion
+	branch := "gostart-update-" + targetVersion
 	oldCommit, newCommit, err := importTemplates(ctx, repository.Root, oldRoot, newRoot)
 	if err != nil {
 		return Result{}, err
 	}
-	bridge, err := runGit(ctx, repository.Root, strings.NewReader("goilerplate update bridge\n"),
+	bridge, err := runGit(ctx, repository.Root, strings.NewReader("gostart update bridge\n"),
 		"commit-tree", repository.HeadTree, "-p", oldCommit)
 	if err != nil {
 		return Result{}, fmt.Errorf("prepare Git merge: %w", err)
@@ -111,7 +111,7 @@ func Merge(ctx context.Context, repository Repository, oldRoot, newRoot, targetV
 	if err != nil {
 		return Result{}, err
 	}
-	commit, err := runGit(ctx, repository.Root, strings.NewReader("Update goilerplate template to "+targetVersion+"\n"),
+	commit, err := runGit(ctx, repository.Root, strings.NewReader("Update gostart template to "+targetVersion+"\n"),
 		"commit-tree", mergedTree, "-p", repository.Head)
 	if err != nil {
 		return Result{}, fmt.Errorf("create update commit: %w", err)
@@ -174,10 +174,10 @@ func importTemplates(ctx context.Context, repositoryRoot, oldRoot, newRoot strin
 func writeTemplateCommits(destination io.Writer, importRef, oldRoot string, oldFiles []string, newRoot string, newFiles []string) error {
 	writer := bufio.NewWriter(destination)
 	_, _ = io.WriteString(writer, "feature done\n")
-	if err := writeTemplateCommit(writer, importRef, oldRoot, oldFiles, ":1", "", "old goilerplate template"); err != nil {
+	if err := writeTemplateCommit(writer, importRef, oldRoot, oldFiles, ":1", "", "old gostart template"); err != nil {
 		return err
 	}
-	if err := writeTemplateCommit(writer, importRef, newRoot, newFiles, ":2", ":1", "new goilerplate template"); err != nil {
+	if err := writeTemplateCommit(writer, importRef, newRoot, newFiles, ":2", ":1", "new gostart template"); err != nil {
 		return err
 	}
 	fmt.Fprintf(writer, "get-mark :1\nget-mark :2\nreset %s\n\ndone\n", importRef)
@@ -187,8 +187,8 @@ func writeTemplateCommits(destination io.Writer, importRef, oldRoot string, oldF
 func writeTemplateCommit(writer *bufio.Writer, importRef, root string, files []string, mark, parent, message string) error {
 	fmt.Fprintln(writer, "commit", importRef)
 	fmt.Fprintln(writer, "mark", mark)
-	fmt.Fprintln(writer, "author goilerplate <> 0 +0000")
-	fmt.Fprintln(writer, "committer goilerplate <> 0 +0000")
+	fmt.Fprintln(writer, "author gostart <> 0 +0000")
+	fmt.Fprintln(writer, "committer gostart <> 0 +0000")
 	fmt.Fprintf(writer, "data %d\n%s\n", len(message), message)
 	if parent != "" {
 		fmt.Fprintln(writer, "from", parent)
@@ -217,7 +217,7 @@ func temporaryImportRef() (string, error) {
 	if _, err := rand.Read(random); err != nil {
 		return "", fmt.Errorf("create temporary Git ref: %w", err)
 	}
-	return "refs/goilerplate/internal/update-import-" + hex.EncodeToString(random), nil
+	return "refs/gostart/internal/update-import-" + hex.EncodeToString(random), nil
 }
 
 func mergeTree(ctx context.Context, root, customerCommit, newCommit string) (string, []string, error) {
@@ -396,9 +396,9 @@ func gitEnvironment() []string {
 		environment = append(environment, value)
 	}
 	return append(environment,
-		"GIT_AUTHOR_NAME=goilerplate",
+		"GIT_AUTHOR_NAME=gostart",
 		"GIT_AUTHOR_EMAIL=",
-		"GIT_COMMITTER_NAME=goilerplate",
+		"GIT_COMMITTER_NAME=gostart",
 		"GIT_COMMITTER_EMAIL=",
 	)
 }
