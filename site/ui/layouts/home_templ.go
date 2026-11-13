@@ -9,7 +9,7 @@ package layouts
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-import "github.com/axadrn/goilerplate/v4/site/ui/blocks"
+import "github.com/jasonlollback/gostart/v4/site/ui/blocks"
 
 func Home(seo SEOProps) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
