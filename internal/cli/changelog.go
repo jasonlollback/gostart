@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/axadrn/goilerplate/v4/internal/github"
+	"github.com/jasonlollback/gostart/v4/internal/github"
 )
 
 func (a *App) changelog(ctx context.Context, arguments []string) error {
 	if len(arguments) != 0 {
-		return errors.New("usage: goilerplate changelog")
+		return errors.New("usage: gostart changelog")
 	}
 	if a.FetchReleases == nil {
 		return errors.New("release notes are not configured")
