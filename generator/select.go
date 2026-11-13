@@ -283,9 +283,9 @@ func (t Template) requireAxes(config Config) error {
 	}{
 		// SvelteKit comes first: a tree without it names SvelteKit even when it
 		// also predates the JSON API.
-		{enabled: config.IsSvelte(), word: string(FrameworkSvelte), message: fmt.Sprintf("SvelteKit needs goilerplate %s or newer", SvelteFirstVersion)},
-		{enabled: config.API, axis: "api", message: fmt.Sprintf("The JSON API and Headless need goilerplate %s or newer", APIFirstVersion)},
-		{enabled: config.MCP, axis: "mcp", message: fmt.Sprintf("The MCP server needs goilerplate %s or newer", MCPFirstVersion)},
+		{enabled: config.IsSvelte(), word: string(FrameworkSvelte), message: fmt.Sprintf("SvelteKit needs gostart %s or newer", SvelteFirstVersion)},
+		{enabled: config.API, axis: "api", message: fmt.Sprintf("The JSON API and Headless need gostart %s or newer", APIFirstVersion)},
+		{enabled: config.MCP, axis: "mcp", message: fmt.Sprintf("The MCP server needs gostart %s or newer", MCPFirstVersion)},
 	}
 	for _, check := range checks {
 		if !check.enabled {
