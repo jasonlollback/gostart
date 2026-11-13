@@ -18,7 +18,7 @@ func (function roundTripFunc) RoundTrip(request *http.Request) (*http.Response, 
 
 func TestListReleasesReturnsPublishedReleases(t *testing.T) {
 	client := &http.Client{Transport: roundTripFunc(func(request *http.Request) (*http.Response, error) {
-		if request.URL.String() != releasesURL || request.Header.Get("User-Agent") != "goilerplate" {
+		if request.URL.String() != releasesURL || request.Header.Get("User-Agent") != "gostart" {
 			t.Fatalf("request = %s, headers = %#v", request.URL, request.Header)
 		}
 		body := `[
