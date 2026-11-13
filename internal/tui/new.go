@@ -93,7 +93,7 @@ func newStyles(isDark bool) styles {
 	}
 }
 
-// Run asks the project questions and returns the goilerplate new arguments.
+// Run asks the project questions and returns the gostart new arguments.
 func Run(ctx context.Context, input io.Reader, output io.Writer) ([]string, error) {
 	program := tea.NewProgram(
 		newModel(),
@@ -240,7 +240,7 @@ func (m model) Update(message tea.Msg) (tea.Model, tea.Cmd) {
 func (m model) View() tea.View {
 	if m.width < 40 || m.height < 18 {
 		view := tea.NewView(strings.Join([]string{
-			m.styles.brand.Render("goilerplate"),
+			m.styles.brand.Render("gostart"),
 			"",
 			"Terminal too small.",
 			"Resize to at least 40 × 18.",
@@ -248,7 +248,7 @@ func (m model) View() tea.View {
 			m.styles.muted.Render("ctrl+c quit"),
 		}, "\n"))
 		view.AltScreen = true
-		view.WindowTitle = "goilerplate new"
+		view.WindowTitle = "gostart new"
 		return view
 	}
 	leftMargin := 4
@@ -260,7 +260,7 @@ func (m model) View() tea.View {
 		topMargin = 1
 	}
 	contentWidth := m.width - leftMargin - 2
-	header := m.styles.brand.Render("goilerplate") + m.styles.muted.Render(" new  "+m.progress())
+	header := m.styles.brand.Render("gostart") + m.styles.muted.Render(" new  "+m.progress())
 	main := lipgloss.NewStyle().Width(contentWidth).Render(strings.Join([]string{
 		header,
 		"",
@@ -273,7 +273,7 @@ func (m model) View() tea.View {
 	content := strings.Join(lines, "\n")
 	view := tea.NewView(lipgloss.NewStyle().MarginLeft(leftMargin).MarginTop(topMargin).Render(content))
 	view.AltScreen = true
-	view.WindowTitle = "goilerplate new"
+	view.WindowTitle = "gostart new"
 	return view
 }
 
@@ -426,7 +426,7 @@ func (m model) options() []option {
 	switch m.step {
 	case stepFramework:
 		return []option{
-			{label: "htmx", value: "htmx", description: "Small, stable, and the default goilerplate frontend."},
+			{label: "htmx", value: "htmx", description: "Small, stable, and the default gostart frontend."},
 			{label: "Datastar", value: "datastar", description: "Server-sent events with a reactive HTML-first client."},
 			{label: "SvelteKit", value: "svelte", description: "SvelteKit app on the JSON API, served by the Go binary."},
 			{label: "Headless", value: "headless", description: "Go backend with a JSON API and no native frontend."},
