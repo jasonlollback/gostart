@@ -8,11 +8,11 @@ order: 6
 
 Clear beats clever.
 
-goilerplate chooses ordinary Go and explicit code because the person maintaining the product six months later matters more than the person admiring an abstraction today.
+GoStart chooses ordinary Go and explicit code because the person maintaining the product six months later matters more than the person admiring an abstraction today.
 
 ## Boilerplate, not a framework
 
-The generator writes a starting repository. The generated application does not import a proprietary goilerplate runtime.
+The generator writes a starting repository. The generated application does not import a proprietary GoStart runtime.
 
 You can change or remove anything. The cost is visible because the code is visible.
 
@@ -42,7 +42,7 @@ Defaults reduce risk. They do not replace a security review for your product.
 
 Generation and updates never require repository access. Your source code stays on your machine.
 
-`goilerplate update` downloads the template of your old version, renders the old and new trees on your machine, and lets Git merge them. Conflicts remain normal Git conflicts.
+`gostart update` downloads the template of your old version, renders the old and new trees on your machine, and lets Git merge them. Conflicts remain normal Git conflicts.
 
 ## Boring operations
 
