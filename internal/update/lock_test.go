@@ -27,7 +27,7 @@ func TestReadLock(t *testing.T) {
   }
 }
 `
-	if err := os.WriteFile(filepath.Join(root, "goilerplate.lock"), []byte(content), 0o644); err != nil {
+	if err := os.WriteFile(filepath.Join(root, "gostart.lock"), []byte(content), 0o644); err != nil {
 		t.Fatal(err)
 	}
 	lock, err := ReadLock(root)
@@ -42,7 +42,7 @@ func TestReadLock(t *testing.T) {
 func TestReadLockDropsTheLegacyEdition(t *testing.T) {
 	root := t.TempDir()
 	content := `{"schema_version":1,"template_version":"v3.0.0","config":{"edition":"free","framework":"htmx","database":"sqlite","payment":"none","mail":"smtp"}}`
-	err := os.WriteFile(filepath.Join(root, "goilerplate.lock"), []byte(content), 0o644)
+	err := os.WriteFile(filepath.Join(root, "gostart.lock"), []byte(content), 0o644)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -68,7 +68,7 @@ func TestReadLockDecodesTheJSONAPI(t *testing.T) {
 		t.Run(name, func(t *testing.T) {
 			root := t.TempDir()
 			content := `{"schema_version":1,"template_version":"v3.0.0","config":` + test.config + `}`
-			err := os.WriteFile(filepath.Join(root, "goilerplate.lock"), []byte(content), 0o644)
+			err := os.WriteFile(filepath.Join(root, "gostart.lock"), []byte(content), 0o644)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -94,7 +94,7 @@ func TestReadLockRejectsMissingUnknownAndUnsupportedFiles(t *testing.T) {
 	} {
 		t.Run(name, func(t *testing.T) {
 			root := t.TempDir()
-			if err := os.WriteFile(filepath.Join(root, "goilerplate.lock"), []byte(content), 0o644); err != nil {
+			if err := os.WriteFile(filepath.Join(root, "gostart.lock"), []byte(content), 0o644); err != nil {
 				t.Fatal(err)
 			}
 			if _, err := ReadLock(root); err == nil || strings.TrimSpace(err.Error()) == "" {
