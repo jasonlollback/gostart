@@ -12,10 +12,10 @@ import templruntime "github.com/a-h/templ/runtime"
 import (
 	"context"
 
-	"github.com/axadrn/goilerplate/v4/site/ui/components/dialog"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/icon"
-	"github.com/axadrn/goilerplate/v4/site/ui/components/inputgroup"
-	"github.com/axadrn/goilerplate/v4/site/ui/utils"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/dialog"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/icon"
+	"github.com/jasonlollback/gostart/v4/site/ui/components/inputgroup"
+	"github.com/jasonlollback/gostart/v4/site/ui/utils"
 )
 
 type ctxKey string
